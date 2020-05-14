@@ -1,0 +1,21 @@
+{
+  // @babel/core决定了必须使用@babel/preset版本
+  //cnpm install @babel/preset-env --save
+  "presets":[
+    [
+      //使用babel-loader必须使用babel/preset，配置编译标准
+      "@babel/preset-env",
+      {
+        //指定编译后兼容的目标
+        "targets":{
+          "browsers":[">1%","last 2 versions","not ie<=8"]
+          // node:"12.13.0"
+          // chrome:"59"
+        }
+      }
+    ]
+  ],
+  "plugins":[
+    ["@babel/transform-runtime"]
+  ]
+}

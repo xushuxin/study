@@ -1,0 +1,6 @@
+@import './a.css';
+body{
+  background:#f00;
+  transform:rotate(-45deg);
+  display:flex;
+}
