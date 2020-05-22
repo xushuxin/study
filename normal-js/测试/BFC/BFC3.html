@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>计算BFC高度时，浮动元素也参与计算,可用于解决浮动元素造成的父元素高度塌陷问题</title>
+  <style>
+    /* 设置浮动元素的父元素overflow不为none*/
+    .parent {
+      overflow:hidden;
+    }
+    .float {
+      float:left;
+    }
+  </style>
+</head>
+<body>
+  <div class='parent'>
+    <div class='float'>浮动元素</div>
+  </div>
+</body>
+</html>
