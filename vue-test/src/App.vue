@@ -13,7 +13,6 @@ export default {
       var htmlFontSize = document.documentElement.clientWidth / 750 * 100 + 'px'
       var bodyFontSize = '16px'// 设置body元素字体大小（公共字体大小）
       var styleDom = document.createElement('style') // 生成style标签
-
       styleDom.innerHTML = `html{font-size:${htmlFontSize}!important;}body{font-size:${bodyFontSize}!important}`
       document.getElementsByTagName('head')[0].appendChild(styleDom)
     })()

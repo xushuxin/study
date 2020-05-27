@@ -6,18 +6,6 @@
         <span>{{item.info}}</span>
         <img class="menu-icon" src="@/assets/images/image1.png" alt="">
       </div>
-      <!-- <div class="menu-item" :style="`color:#${randomColor};`" @click="toRouter('/use-slide-del')" >
-        <span>移动端左滑删除事件（自己写的）</span>
-        <img class="menu-icon" src="@/assets/images/image1.png" alt="">
-      </div>
-      <div class="menu-item" :style="`color:#${randomColor};`" @click="toRouter('/test-mand-mobile')" >
-         <span>测试mand-mobile</span>
-        <img class="menu-icon" src="@/assets/images/image1.png" alt="">
-      </div>
-      <div class="menu-item" :style="`color:#${randomColor};`" @click="toRouter('/lodash-debounce')" >
-         <span>测试lodash.debounce</span>
-        <img class="menu-icon" src="@/assets/images/image1.png" alt="">
-      </div> -->
     </div>
   </div>
 </template>
@@ -44,7 +32,7 @@ export default {
       })
     },
     getPageList(){
-      const requireComponent=require.context('.',true,/\.vue$/);
+      const requireComponent=require.context('.',true,/^((?!Index).)*\.vue$/);//匹配不包含Index的以.vue结尾的
       requireComponent.keys().forEach(fileName =>{
         const config=requireComponent(fileName);
         this.routeList.push({
@@ -65,8 +53,24 @@ export default {
 </script>
 
 <style lang="css">
+@media screen and (max-width:600px){
+  body{
+    background:#faa;
+  } 
+}
+@media screen and (min-width:600px) and (max-width:1200px){
+  body{
+    background:#dbbb63;
+  }
+}
+@media screen and (min-width:1200px) {
+  body{
+    background:#72ced4;
+  }
+}
 .menus{
   display:flex;
+  flex-wrap:wrap;
   padding:0 40px;
 }
 .menu-item{

@@ -28,7 +28,8 @@ export default {
       },
       delBtnStyleObject:{
         width:`${this.delBtnWidth/50}rem`
-      }
+      },
+      e:null
     };
   },
   props:{
@@ -51,20 +52,15 @@ export default {
   },
   methods: {
     handleSwipeLeft(e){
-      alert('左滑')
-      // console.log(e.target.style.cssText);
+      // alert('左滑')
+      this.e&&this.handleSwipeRight(this.e);//重置上一次滑动
       let elStyle=e.target.parentNode.parentNode.parentNode.style;
-      console.log(elStyle.transform)
-      console.log(elStyle.transform.match(/\d/))
-      // if(!elStyle.transform||/(?:\()\d(?:\))/.match(elStyle.transform)==="0"){
-      //   alert(1)
-      // }
+      this.e=e;
       elStyle.cssText=elStyle.cssText+`transform:translateX(-${this.delBtnWidth/50}rem);`
     },
     handleSwipeRight(e){
-      alert('右滑')
+      // alert('右滑')
       let elStyle=e.target.parentNode.parentNode.parentNode.style;
-      //  console.log(elStyle.transform)
       elStyle.cssText=elStyle.cssText+`transform:translateX(0);`
     },
     deleteItem(index){
@@ -73,7 +69,7 @@ export default {
     },
     doClick(e,{id}){
       console.log(e.target)
-      this.handleSwipeRight(e);//跳转时重置左滑状态
+      this.handleSwipeRight(this.e);//跳转时重置左滑状态
       this.$emit('click',{id})
     }
   },
