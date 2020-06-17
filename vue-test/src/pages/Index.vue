@@ -43,9 +43,7 @@ export default {
     }
   },
   mounted () {
-    console.log('haha', [1, 2, 3].includes(1))
-    console.log(this.randomColor)
-    // this.getData()
+    this.getData()
     this.getPageList()
   }
 }

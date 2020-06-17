@@ -5,54 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-      .border {
-          width: 200px;
-          height: 200px;
-          margin: 0 auto;
-          position: relative;
-      }
-      .border::before {
-          content: " ";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 200%;
-          height: 200%;
-          border: 1px solid red;
-          transform-origin: 0 0;
-          transform: scale(0.5);
-      }
-      @keyframes myfirst {
-        from{ width:0px;height:0px; }
-        to{ width:400px;height:400px; }
-      }
-      #smallImg{
-        animation-name:myfirst;
-        animation-duration: 1000ms;
-        animation-iteration-count:infinite;
-      }
+    *{
+      margin:0;
+      padding:0;  
+    }
+    html,body{
+      height:100%;
+    }
+    .box{
+      height:100%;
+      overflow-y:scroll;
+    }
+    .inner-box{
+      height:2000px;
+    }  
+    .other-content{
+      height:300px;
+      background:#f66;
+    }
+    .top-sticky{
+      position:sticky;
+      top:0px;
+      width:100%;
+      height:30px;
+      background:#fdd;
+    }
   </style>
 </head>
 <body>
-  <div class="border">0.5像素边框~~~~</div>
-  <!-- <img src="http://img2.utuku.china.com/640x0/news/20170210/77b8b5ca-11d3-4307-9a93-c12df5eb1a35.jpg"
-     style="position: absolute;clip: rect(0px,250px,200px,50px);width: 300px;height: 200px"> -->
-  <div style="margin-left:200px;position:relative;width:200px;height:200px;"> 
-    <div id="smallImg" onclick="showBigImg(event)" style="background-repeat:no-repeat;background-image:url(http://img2.utuku.china.com/640x0/news/20170210/77b8b5ca-11d3-4307-9a93-c12df5eb1a35.jpg);background-size:cover;width:200px;height:200px;background-position:center center;">
+  <div class="box">
+    <div class="inner-box">
+      <div class="other-content">我是一些其他的内容</div>
+      <div class="top-sticky">
+        我想固定在上方
+      </div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
+      <div>下面是一大段文字</div>
     </div>
-    <div onclick="hideBigImg(event)" id="bigImg" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background-repeat:no-repeat;background-image:url(http://img2.utuku.china.com/640x0/news/20170210/77b8b5ca-11d3-4307-9a93-c12df5eb1a35.jpg);background-size:cover;width:0px;height:0px;background-position:center center;"></div>
   </div>
+  
  
 <script>
-  function showBigImg(event){
-    console.log(event)
-    bigImg.style.height="400px";
-    bigImg.style.width="400px";
-  }
-  function hideBigImg(event){
-    bigImg.style.height="0px";
-    bigImg.style.width="0px";
-  }
+
   
 </script>
 </body>
