@@ -7,8 +7,9 @@ const install = (Vue) => {
   // console.log(requireComponent.keys())
   requireComponent.keys().forEach(fileName => {
     const config = requireComponent(fileName);
+    const fileNameFormat=fileName.split('/').pop().replace(/\.\w+$/,'')
     // console.log(config);
-    Vue.component(config.default.name,config.default)
+    Vue.component(config.default.name||fileNameFormat,config.default)
   })
 }
 

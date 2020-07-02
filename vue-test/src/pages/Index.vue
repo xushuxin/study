@@ -2,8 +2,8 @@
   <div>
     <h3>测试入口</h3>
     <div class="menus">
-      <div v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
-        <span>{{item.info}}</span>
+      <div  v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
+        <span ref="menuItem">{{item.info}}</span>
         <img class="menu-icon" src="@/assets/images/image1.png" alt="">
       </div>
     </div>
@@ -35,9 +35,10 @@ export default {
       const requireComponent=require.context('.',true,/^((?!Index).)*\.vue$/);//匹配不包含Index的以.vue结尾的
       requireComponent.keys().forEach(fileName =>{
         const config=requireComponent(fileName);
+        const fileNameFormat=fileName.split('/').pop().replace(/\.\w+$/,'');
         this.routeList.push({
-          path:'/'+config.default.name,
-          info:config.default.name
+          path:'/'+(config.default.name||fileNameFormat),
+          info:config.default.name||fileNameFormat
         })
       })
     }
@@ -45,6 +46,10 @@ export default {
   mounted () {
     this.getData()
     this.getPageList()
+    this.$nextTick(_=>{
+      console.log('menuItem',this.$refs.menuItem[1])
+    })
+    
   }
 }
 
