@@ -1,21 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-   
-  </style>
-</head>
-<body>
-  <div class="box">
-  </div>
-  
- 
-<script>
+<html>
 
-  
-</script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <hello-world>
+      <template #first="{ user={ firstName:'evening'}}">
+        {{ user.firstName }}
+      </template>
+    </hello-world>
+  </div>
+  <script>
+    Vue.component('hello-world', {
+      template: `
+         <div>
+            <slot name="first"></slot>
+            <slot :user="user" name="last">{{ user.lastName }}</slot>
+        </div>
+       `,
+      data() {
+        return {
+          user: {
+            lastName: "water"
+          }
+        }
+      }
+    })
+    var vm = new Vue({
+      el: "#app",
+      data() {
+        return {
+
+        }
+      }
+    })
+  </script>
 </body>
+
 </html>

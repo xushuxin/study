@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL="https://api.publicapis.org/";
+const baseURL=axios.defaults.baseURL="https://api.publicapis.org";
 const post = (url, parmas) => {
   return new Promise((resolve, reject) => {
     axios.post(url, parmas).then(res => {
@@ -21,5 +21,6 @@ const get = (url) => {
 
 export default{
   post,
-  get
+  get,
+  baseURL
 }

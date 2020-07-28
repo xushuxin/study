@@ -40,7 +40,7 @@ var multiply = function(num1, num2) {
     return res.reverse().join('');
 };
 let a=multiply('222','999')
-console.log(typeof '0'.charCodeAt(0))
+
 // console.log('9'.charCodeAt(0)-'0'.charCodeAt(0))
 
     //     2 2 2

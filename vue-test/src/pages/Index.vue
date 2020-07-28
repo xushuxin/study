@@ -3,7 +3,7 @@
     <h3>测试入口</h3>
     <div class="menus">
       <div  v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
-        <span ref="menuItem">{{item.info}}</span>
+        <span ref="menuItem" :class="{'no-mgRight':index}">{{item.info}}</span>
         <img class="menu-icon" src="@/assets/images/image1.png" alt="">
       </div>
     </div>
@@ -56,6 +56,9 @@ export default {
 </script>
 
 <style lang="css">
+h3{
+  text-align:center;
+}
 @media screen and (max-width:600px){
   body{
     background:#faa;
@@ -74,7 +77,6 @@ export default {
 .menus{
   display:flex;
   flex-wrap:wrap;
-  padding:0 40px;
 }
 .menu-item{
   display:flex;
@@ -83,6 +85,9 @@ export default {
   cursor:pointer;
   margin-right:20px;
   text-align:center;
+  &.no-mgRight{
+
+  }
 }
 .menu-item span{
  width:100px;

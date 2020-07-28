@@ -9,12 +9,15 @@ export default {
   name: 'App',
   mounted () {
     (function () {
+      var bodyFontSize = "0.16rem";// 设置body元素字体大小（公共字体大小）
+      document.body.style.fontSize=bodyFontSize;
       // 根据iPhone6s的宽度为基准，设置根字体大小
-      var htmlFontSize = document.documentElement.clientWidth / 750 * 100 + 'px'
-      var bodyFontSize = '16px'// 设置body元素字体大小（公共字体大小）
-      var styleDom = document.createElement('style') // 生成style标签
-      styleDom.innerHTML = `html{font-size:${htmlFontSize}!important;}body{font-size:${bodyFontSize}!important}`
-      document.getElementsByTagName('head')[0].appendChild(styleDom)
+      function setRootFont(){
+        var htmlFontSize = document.documentElement.clientWidth*2 / 750 * 100 + 'px';
+        document.documentElement.style.fontSize=htmlFontSize;
+      }
+      setRootFont()
+      window.onresize=setRootFont;
     })()
   }
 }
@@ -27,7 +30,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
 }
 body{
   margin:0;

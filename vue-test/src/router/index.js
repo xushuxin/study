@@ -6,11 +6,11 @@ Vue.use(Router)
 
 const routes =[];
 const requireComponent=require.context('../pages',true,/\.vue$/);
-// console.log(requireComponent.keys());
+console.log(requireComponent.keys());
 requireComponent.keys().forEach(fileName => {
   const config = requireComponent(fileName);
   const fileNameFormat=fileName.split('/').pop().replace(/\.\w+$/,'')
-  // console.log(config);
+  // console.log(config, { fileName});
   if(!config.default.name) {
     routes.push({
       path:'/'+fileNameFormat,

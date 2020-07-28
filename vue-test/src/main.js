@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueTouch from 'vue-touch';
 import myAxios from 'js/axios';
+process.env.NODE_ENV==='mock'&&require('../mock/mock.js');//在vue项目中使用mockjs
 import mandMobile from 'mand-mobile'
 import myTestComponents from '@/components/index.js'
 import 'mand-mobile/lib/mand-mobile.css'

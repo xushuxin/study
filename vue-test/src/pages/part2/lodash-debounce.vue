@@ -24,8 +24,9 @@ export default {
         console.log(res)
       })
     },1000, {
-      'leading': false,
-      'trailing': true//停止触发事件1s后触发（用于输入内容后自动查询数据）
+      'leading': false,//为true立即触发（用于防重复调用）
+      'trailing': true//为true停止触发事件1s后触发（用于输入内容后自动查询数据）
+      // 两个参数不能同时为true
     }),
   }
 }

@@ -61,5 +61,5 @@ var multiply = function(num1, num2) {
  return res.reverse().join('');
 };
 
-let b=numpointmultyply('0.25','50')
+let b=numpointmultyply('0.25','5.5')
 console.log(b)

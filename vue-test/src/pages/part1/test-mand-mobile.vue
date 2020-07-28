@@ -19,9 +19,9 @@ export default{
   },
   methods:{
     preventInput(){
-      var reg=new RegExp('[^\da-zA-Z]','g');
+      var reg=new RegExp('\\d','g');
       this.text=this.text.trim().replace(reg,'')
-      this.$refs.inputItem.inputValue=this.text;
+      this.$refs.inputItem.inputValue=this.text;//解决bug（对输入值进行过滤时，输入框内容不变）
       console.log(this.$refs.inputItem)
     }
   },
@@ -29,7 +29,8 @@ export default{
   mounted(){}
 }
 </script>
-<style lang="stylus">
+<style scoped lang="stylus">
 .my-input
-  width:300x;
+  width 301.05678px
+  letter-spacing 1px
 </style>  
