@@ -2,8 +2,8 @@
   <div>
     <h3>测试入口</h3>
     <div class="menus">
-      <div  v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
-        <span ref="menuItem" :class="{'no-mgRight':index}">{{item.info}}</span>
+      <div ref="menuItem" :class="{'no-mgRight':(index+1)%6===0}" v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
+        <span>{{item.info}}</span>
         <img class="menu-icon" src="@/assets/images/image1.png" alt="">
       </div>
     </div>
@@ -55,13 +55,13 @@ export default {
 
 </script>
 
-<style lang="css">
+<style lang="stylus">
 h3{
   text-align:center;
 }
 @media screen and (max-width:600px){
   body{
-    background:#faa;
+    background:#85ce61;
   } 
 }
 @media screen and (min-width:600px) and (max-width:1200px){
@@ -77,6 +77,7 @@ h3{
 .menus{
   display:flex;
   flex-wrap:wrap;
+  word-break:break-all;
 }
 .menu-item{
   display:flex;
@@ -86,7 +87,7 @@ h3{
   margin-right:20px;
   text-align:center;
   &.no-mgRight{
-
+    margin-right: 0;
   }
 }
 .menu-item span{
