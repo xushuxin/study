@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用jszip和file-saver实现批量下载保存</title>
+  <style>
+    input {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="button">点击下载多个文件</button>
+  <input type="file" name="upFile" id="upFile" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.zip" multiple>
+
+  <script src=" https://unpkg.com/axios/dist/axios.min.js "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.js "></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/1.0.0/FileSaver.min.js "></script>
+  <script defer src="./pack-download.js "></script>
+  <script defer src="./read-zip.js"></script>
+  <script defer src="./index.js "></script>
+</body>
+
+</html>

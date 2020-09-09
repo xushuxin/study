@@ -1,3 +1,4 @@
+/**原生 js实现图片懒加载 */
 export function lazyLoad({ preview = 1 }) {
   var imgs;
 

@@ -24,6 +24,7 @@ Vue.use(myTestComponents)
 //自定义指令，根据权限列表以及v-permission绑定的值判断是否有权限，无权限元素隐藏
 Vue.directive('permission', {
     inserted: function(el, binding, vnode) {
+      //这里需要从登录的信息里获取（一般单页应用存在 vuex state 中）
       const permissionList = ["1", "2", "3", "4", "5"]
       const permission = binding.value;
       if (!permission) throw Error('需要传入权限id')
