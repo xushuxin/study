@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="normalize.css" />
+  <style>
+    html {
+      height: 300%;
+      background: linear-gradient(to bottom, rgb(0, 162, 255), orange);
+    }
+    
+    body {
+      height: 100%;
+    }
+    
+    canvas {
+      background: #eee;
+    }
+    
+    .bank-enter {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 60px;
+      height: 60px;
+      background-color: #F6F9FC;
+      border-radius: 60px;
+      border: solid 1px #E6EAF2;
+      text-align: center;
+      line-height: 60px;
+    }
+    
+    .bank-enter:hover #qrcode-box {
+      transform: translate(-50%, -120%);
+      visibility: visible;
+    }
+    
+    #qrcode-box {
+      -webkit-transition: all 250ms ease-in-out;
+      transition: all 250ms ease-in-out;
+      /* height: 0; */
+      height: 100px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      line-height: 0;
+      transform: translate(-50%, -85%);
+      background: #fff;
+      border: 1px solid #2057AC;
+      padding: 10px;
+      border-radius: 2px;
+      visibility: hidden;
+    }
+    
+    .arrow {
+      border-style: solid;
+      border-width: 10px 10px 0;
+      border-color: #2057AC transparent transparent;
+      height: 0;
+      width: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      bottom: 0;
+      transform: translateY(100%);
+    }
+    
+    .arrow:after {
+      content: '';
+      border-style: solid;
+      border-width: 10px 10px 0;
+      border-color: #fff transparent transparent;
+      height: 0;
+      width: 0;
+      position: absolute;
+      /* 父级没有高度，参照坐标是父级的中心位置 */
+      top: -11px;
+      left: -10px;
+    }
+    
+    .icon.icon-phone-footer-person:before {
+      background-position: -153.5em -0.08333333333333333em;
+      width: 2em;
+      height: 2em;
+    }
+    
+    .icon:before {
+      content: ' ';
+      vertical-align: middle;
+      display: inline-block;
+      background-image: url(http://www.4001961200.com/themes/szrcb/images/svg-sprite/svg/sprite-2018020800.svg);
+      background-repeat: no-repeat;
+      background-size: 232.08333333333334em 8.166666666666666em;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <!-- <button id="button" onclick="doclick()">点击</button>
+    <input id="file" type="file" accept=".png"> -->
+    <canvas id="canvas" width="600" height="600">你的浏览器不支持canvas，请升级浏览器</canvas>
+    <div class="bank-enter">
+      <div id="qrcode-box">
+        <img width="100" height="100%" src="http://www.4001961200.com/themes/szrcb/images/QR/QR-phone-bank-newenterprise.jpg" alt="">
+        <div class="arrow"></div>
+      </div>
+      <span id="icon" class="icon logo icon-phone-footer-person "></span>
+    </div>
+  </div>
+  <script src="./test.js"></script>
+</body>
+
+</html>
