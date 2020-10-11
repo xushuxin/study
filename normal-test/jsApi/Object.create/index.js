@@ -13,11 +13,11 @@ Object.create = function(obj) {
   Anonymous.prototype = obj;
   var newObj = new Anonymous;
   if (obj === null) {
-    //如果传入的是null，把其__proto__属性置为null(防止低版本浏览器报错使用try...catch);
+    //如果传入的是null，把其__proto__属性置为null(防止不兼容浏览器报错使用try...catch);
     try {
       newObj.__proto__ = null;
     } catch (err) {
-
+      console.warning('该浏览器不允许访问__proto__')
     }
   }
   return newObj; //返回使用函数new初始化的对象
