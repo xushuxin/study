@@ -7,7 +7,11 @@
  * @return
  *    可以被调用执行的函数
  */
-/* 主体思路：在当前点击完成之后，我们等wait这么长的事件，看是否还会触发第二次，如果没有触发第二次，属于非频繁操作，我们直接执行想要执行的函数func;如果触发了第二次，则之前的点击不算，从当前这次再开始等待 */
+/* 
+主体思路：在当前点击完成之后，我们等wait这么长的事件，看是否还会触发第二次，
+如果没有触发第二次，属于非频繁操作，我们直接执行想要执行的函数func;
+如果触发了第二次，则之前的点击不算，从当前这次再开始等待 
+*/
 function debounce(func, wait = 300, immediate = false) {
   let timer;
   return function anonymous(...params) {
@@ -18,6 +22,7 @@ function debounce(func, wait = 300, immediate = false) {
 
     timer = setTimeout(() => { //设置一个定时器，wait ms后执行func
       timer = null; //手动回归初始状态
+      //immediate为true时，定时器仅用于控制timer
       !immediate && func.call(this, ...params)
     }, wait)
     now && func.call(this); //初始状态点击立即执行

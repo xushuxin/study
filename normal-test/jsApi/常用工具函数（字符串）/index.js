@@ -48,19 +48,19 @@
     String.prototype[item] = eval(item);
   }) */
 }();
-/* //test formatTime
+//test formatTime
 let time = "2019-8-13 6:2:1"; //后台返回的数据格式
 console.log(time.formatTime());
 console.log(time.formatTime("{0}年{1}月{2}日"));
 console.log(time.formatTime("{1}月{2}日"));
-console.log(time.formatTime("{3}:{4}")); 
-*/
+console.log(time.formatTime("{3}:{4}"));
 
-/*//test parseURLparams 
+
+//test parseURLparams 
 let qryURL = "https://www.baidu.com/s?ie=UTF-8&wd=%E7%8F%A0%E5%B3%B0%E5%9F%B9%E8%AE%AD#HASH";
 console.log(qryURL.parseURLParams());
- */
 
-/* // test千分符 
+
+// test千分符 
 let numStr = '12345678901';
-console.log(numStr.delimiter()) */
+console.log(numStr.delimiter())

@@ -1,6 +1,7 @@
 /* 
  * 自定义DOM事件
- *   + document.createEvent('CustomEvent') 或者 new CustomEvent('event_name',{'detail':xxx})
+ *   + document.createEvent('CustomEvent') 
+ *   或者 new CustomEvent('event_name',{'detail':xxx})
  */
 let box = document.querySelector('.box');
 
