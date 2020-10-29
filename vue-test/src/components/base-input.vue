@@ -1,4 +1,4 @@
-/****/
+/**$attrs&$listeners**/
 <template>
   <label>
     哈哈哈 

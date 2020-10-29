@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import myAxios from 'js/axios'
 export default {
   name:'index',
   components: {

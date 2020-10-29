@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const webpack = require('webpack')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -35,11 +36,20 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'src': resolve('src'),
       'js': resolve('src/js'),
       'img': resolve('src/assets/images'),
       'components': resolve('src/components'),
     }
   },
+  plugins: [
+    //自动加载模块，而不必到处 import 或 require 
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      myAxios: 'js/axios'
+    }),
+  ],
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),

@@ -7,51 +7,30 @@
   <meta charset="utf-8">
 
   <title></title>
-
+  <style type="text/css">
+    .outer {
+      width: 200px;
+      height: 150px;
+      border: 1px solid #000;
+      display: table;
+    }
+    
+    .inner {
+      display: table-cell;
+      height: 20px;
+      vertical-align: middle;
+      background: #ff6677;
+    }
+  </style>
 </head>
 
 <body>
-
-  <button onclick="download()">点击按钮下载</button>
-  <button onclick="download2()">点击按钮下载2</button>
-  <button onclick="download3()">点击按钮下载3</button>
-
-
-
-  <script>
-    // 直接下载，用户体验好
-
-    function download() {
-      var $a = document.createElement('a');
-      $a.setAttribute("href", '/normal-test/%E6%B5%8B%E8%AF%95/test.js');
-      $a.setAttribute("download", "");
-      var evObj = document.createEvent('MouseEvents');
-      evObj.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
-      $a.dispatchEvent(evObj);
-    };
-    // 会打开一个空白页下载，然后空白页消失，用户体验不好
-
-    function download2() {
-
-      window.open('/normal-test/%E6%B5%8B%E8%AF%95/test.js');
-
-    }
-
-
-
-    // 直接下载，用户体验好
-
-    function download3() {
-      var $form = $('<form method="GET"></form>');
-
-      $form.attr('action', '/normal-test/%E6%B5%8B%E8%AF%95/test.js');
-
-      $form.appendTo($('body'));
-
-      $form.submit();
-
-    }
-  </script>
+  <div class="outer">
+    <div class="inner">
+      哈哈哈
+    </div>
+  </div>
+  <script src="./test.js"></script>
 
 </body>
 

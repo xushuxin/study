@@ -19,9 +19,10 @@ const get = (url) => {
     });
   })
 }
-
-export default {
+const myAxios = {
   post,
   get,
   baseURL
 }
+module.exports = myAxios //用于webpack（使用的require）自动引入，
+export default myAxios

@@ -12,7 +12,6 @@
 
 <script type="text/javascript">
 import Mock from "mockjs";
-import myAxios from 'js/axios'
 export default {
   data() {
     return {
@@ -23,6 +22,7 @@ export default {
 
   },
   created(){
+    console.log(myAxios)
     myAxios.post('/test/DataOne',{}).then(res=>{
       this.dataList=res.dataSource;
       console.log('mock数据',res)

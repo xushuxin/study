@@ -1,25 +1,31 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import "normalize.css/normalize.css"; //统一样式
+import ElementUI from 'element-ui'
+import "normalize.css"; //统一样式
+import 'element-ui/lib/theme-chalk/index.css'; //element-ui样式
 import debounce from "lodash.debounce"
-Vue.prototype.debounce = debounce;
 import App from './App'
 import router from './router'
 import VueTouch from 'vue-touch';
-import myAxios from 'js/axios';
+// import myAxios from 'js/axios'; //webpack配置了自动引入
 process.env.NODE_ENV === 'mock' && require('../mock/mock.js'); //在vue项目中使用mockjs
-import mandMobile from 'mand-mobile'
-import myTestComponents from '@/components/index.js'
+import MandMobile from 'mand-mobile'
+import MyTestComponents from '@/components/index.js'
 import 'mand-mobile/lib/mand-mobile.css'
 
-Vue.prototype.myAxios = myAxios;
-Vue.use(mandMobile)
+Vue.prototype = Object.assign(Vue.prototype, {
+  debounce,
+  // myAxios
+})
+console.log('Vue.prototype', Vue.prototype)
+Vue.use(MandMobile)
+Vue.use(ElementUI)
 Vue.use(VueTouch, {
-    name: 'v-touch'
-  })
-  // 注册所有组件
-Vue.use(myTestComponents)
+  name: 'v-touch'
+});
+// 注册所有组件
+Vue.use(MyTestComponents)
 
 //自定义指令，根据权限列表以及v-permission绑定的值判断是否有权限，无权限元素隐藏
 Vue.directive('permission', {
