@@ -43,7 +43,7 @@ function getOwnPropertys(obj) {
 function shallowClone(obj) {
   // 处理其它类型的值克隆
   let type = toType(obj);
-  if (/^(number|string|boolean|null|undefiend|symbol|bigint)$/.test(type)) return obj;
+  if (/^(number|string|boolean|null|undefined|symbol|bigint)$/.test(type)) return obj;
   if (/^function$/.test(type)) {
     // 返回一个不同的函数，但是最后执行的效果和原始函数一致
     return function proxy() {
