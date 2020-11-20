@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery版zTree插件封装</title>
+  <style>
+    ul,
+    ol {
+      list-style: none;
+    }
+    
+    a {
+      text-decoration: none;
+      outline-offset: 10px;
+    }
+    
+    a {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    }
+    
+    a:hover,
+    a:active,
+    a:focus {
+      outline: 0;
+    }
+    
+    .level {
+      display: none;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    
+    .level.level0 {
+      display: block;
+      margin-left: 0;
+    }
+    
+    .level li {
+      position: relative;
+      padding-left: 15px;
+      line-height: 30px;
+    }
+    .level li a.selected,.level.selected {
+      background:#F00;
+    }
+    
+    .level li .icon {
+      position: absolute;
+      left: 0;
+      top: 9px;
+      box-sizing: border-box;
+      width: 12px;
+      height: 12px;
+      line-height: 8px;
+      text-align: center;
+      border: 1px solid #AAA;
+      background: #EEE;
+      cursor: pointer;
+    }
+    
+    .level li .icon:after {
+      display: block;
+      content: "+";
+      font-size: 12px;
+      font-style: normal;
+    }
+    
+    .level li .icon.open:after {
+      content: "-";
+    }
+    
+    .level li .title {
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="container1"></div>
+  <div class="container" id="container2"></div>
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="js/ztree_jquery.js"></script>
+  <script>
+    const queryData = () => {
+      return new Promise(resolve => {
+        let xhr = new XMLHttpRequest;
+        xhr.open('GET', '../data.json');
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+            let data = JSON.parse(xhr.responseText);
+            resolve(data);
+          }
+        };
+        xhr.send(null);
+      });
+    };
+    (async function() {
+      let data = await queryData();
+      console.log(data);
+      $('#container1').zTree(data);
+      $('#container2').zTree(data,function(target,childrenBox){
+        console.log(target,childrenBox)
+      });
+    }());
+      /*
+        * JQ版插件:
+        * $(xxx).zTree([data],[callback])
+        * 
+        * 原生JS版插件：
+        * new zTree([element],[options])
+        * new zTree([options])
+        * 
+        * options:
+        *   element:[dom]
+        *   data:[array]
+        *   callback:[function->self/em/ul...]
+        * 
+        * 生命周期函数进阶：
+        *   self.on/off([func])
+        */
+  </script>
+</body>
+
+</html>

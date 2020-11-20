@@ -1,17 +1,17 @@
 //=>深克隆：克隆后数组的每一级都和原始数组没有关联
-// 深克隆的方案
-// 方案1:整体变为字符串，再重新变为对象，这样浏览器会重新开辟全套的内存空间存储信息 JSON.stringify/JSON.parse
-//   这种办法存在BUG:把对象中的某些属性值变为字符串，会存在问题
-//   + 正则/Math对象会变为{}
-//   + 日期对象变为日期字符串
-//   + Symbol/function/undefined等会消失
-//   + 基本类型的包装类型会转为原始值  
-//   + BigInt会报错
-//   + ...
-//   所以这种办法适用于数据中只有 “number/string/boolean/null/普通对象/数组对象” 等内容的时候
-// let newArr = JSON.parse(JSON.stringify(arr));
-// let newObj = JSON.parse(JSON.stringify(obj));
-// console.log(obj, newObj);
+/* 深克隆的方案 */
+/* 方案1:整体变为字符串，再重新变为对象，这样浏览器会重新开辟全套的内存空间存储信息 JSON.stringify/JSON.parse
+  这种办法存在BUG:把对象中的某些属性值变为字符串，会存在问题
+  + 正则/Math对象会变为{}
+  + 日期对象变为日期字符串
+  + Symbol/function/undefined等会消失
+  + 基本类型的包装类型会转为原始值  
+  + BigInt会报错
+  + ...
+  所以这种办法适用于数据中只有 “number/string/boolean/null/普通对象/数组对象” 等内容的时候
+let newArr = JSON.parse(JSON.stringify(arr));
+let newObj = JSON.parse(JSON.stringify(obj));
+console.log(obj, newObj); */
 /**方案2:函数正常不需要克隆，如果需要克隆使用eval或者bind */
 const isNeedClone = function isNeedClone(value) {
   // return typeof value === 'object' && value !== null
@@ -42,6 +42,7 @@ Object.prototype.myDeepClone = function myDeepClone(cache = new Set()) {
     if (Array.isArray(_this)) {
       obj = [];
     }
+    //函数
     // if (typeof _this === 'function') { eval(`obj = ${_this}`) };//克隆函数需要利用eval才可以完美克隆（name、属性、代码块）
     if (typeof _this === 'function') { //或者使用call克隆函数(name不能克隆)
       obj = function() {
@@ -65,8 +66,8 @@ Object.prototype.myDeepClone = function myDeepClone(cache = new Set()) {
       obj[key] = isNeedClone(item) ? item.myDeepClone(cache) : item;
     })
     return obj;
-  }
-  /****************** test *******************/
+};
+/****************** test *******************/
 let num = new Number(11),
   str = new String('string'),
   bool = new Boolean(true),
@@ -93,7 +94,7 @@ var obj = {
     k: num,
     l: str,
     m: bool,
-    n: Symbol('Symobol'),
+    n: Symbol('Symbol'),
     o: BigInt(111),
     p: fn,
     q: new Date(),

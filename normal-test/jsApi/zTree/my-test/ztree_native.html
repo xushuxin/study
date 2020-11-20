@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原生js实现zTree</title>
+  <style>
+    ul,
+    ol {
+      list-style: none;
+    }
+    
+    a {
+      text-decoration: none;
+      outline-offset: 10px;
+    }
+    
+    a {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    }
+    
+    a:hover,
+    a:active,
+    a:focus {
+      outline: 0;
+    }
+    
+    .level {
+      display: none;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    
+    .level.level0 {
+      display: block;
+      margin-left: 0;
+    }
+    
+    .level li {
+      position: relative;
+      padding-left: 15px;
+      line-height: 30px;
+    }
+    .level li a.selected,.level.selected {
+      background:#F00;
+    }
+    
+    .level li .icon {
+      position: absolute;
+      left: 0;
+      top: 9px;
+      box-sizing: border-box;
+      width: 12px;
+      height: 12px;
+      line-height: 8px;
+      text-align: center;
+      border: 1px solid #AAA;
+      background: #EEE;
+      cursor: pointer;
+    }
+    
+    .level li .icon:after {
+      display: block;
+      content: "+";
+      font-size: 12px;
+      font-style: normal;
+    }
+    
+    .level li .icon.open:after {
+      content: "-";
+    }
+    
+    .level li .title {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container1"></div>
+  <div class="container" id="container2"></div>
+  <script src="js/ztree_native.js"></script>
+  <script>
+    (async function(){
+      const data = await queryData();
+      let container1 =document.querySelector('#container1'),
+          container2 =document.querySelector('#container2');
+      new zTree(container1,{
+        data
+      });
+      new zTree({
+        element:container2,
+        data,
+        callback(self,em,ul){
+          console.log(self,em,ul);
+        }
+      })
+      })()
+  </script>
+</body>
+</html>
