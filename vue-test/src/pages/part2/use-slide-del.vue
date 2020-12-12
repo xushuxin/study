@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import SlipDel from '@/components/slide-del'
-
 export default {
   name:'use-slide-del',
   data(){
@@ -31,7 +29,6 @@ export default {
     }
   },
   components: {
-    SlipDel
   },
   methods: {
     slipOpen(vm) {

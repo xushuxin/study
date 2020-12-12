@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import {
-  atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt
-} from 'mathjs'
+// import {
+//   atan2, chain, derivative, e, evaluate, log, pi, pow, round, sqrt
+// } from 'mathjs';
 export default {
   name:'test-mathjs',
   components:{
@@ -22,7 +22,9 @@ export default {
       this.$router.push(router)
     }
   },
-  mounted(){
+  async mounted(){
+    let mathjs = await import('mathjs');//异步加载
+    console.log(mathjs)
   }
 }
 

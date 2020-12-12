@@ -1,0 +1,9 @@
+*{
+  margin:0;
+}
+body{
+  background:skyblue;
+}
+div{
+  transform: rotate(-45deg);
+}

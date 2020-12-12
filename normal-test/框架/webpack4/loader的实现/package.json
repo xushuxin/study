@@ -1,0 +1,24 @@
+{
+  "name": "loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "css-loader": "^5.0.1",
+    "less": "^3.12.2",
+    "loader-utils": "^2.0.0",
+    "webpack-merge": "^5.4.0"
+  }
+}

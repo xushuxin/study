@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实现简单的Vue</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>姓名：{{ name }} 年龄：{{ age }}</div>
+    修改姓名<input type="text" v-model="name"> 修改年龄
+    <input type="text" v-model="age">
+    <div>{{b}}</div>
+    <input type="text" v-model="b">
+  </div>
+  <!-- <script src="./node_modules/vue/dist/vue.js"></script> -->
+  <script src="./my-vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        name: '蝙蝠侠',
+        age: 20,
+        b: "哈哈"
+      },
+    })
+  </script>
+</body>
+
+</html>

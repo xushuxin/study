@@ -13,6 +13,7 @@
       height: 150px;
       border: 1px solid #000;
       display: table;
+      font-weight: bold;
     }
     
     .inner {
@@ -21,13 +22,19 @@
       vertical-align: middle;
       background: #ff6677;
     }
+    
+    .inner :first-of-type {
+      color: aqua;
+    }
   </style>
 </head>
 
 <body>
   <div class="outer">
+    6666
     <div class="inner">
       哈哈哈
+      <div>3</div>
     </div>
   </div>
   <script src="./test.js"></script>

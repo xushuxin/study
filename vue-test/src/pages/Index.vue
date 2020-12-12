@@ -2,7 +2,7 @@
   <div>
     <h3>测试入口</h3>
     <div class="menus">
-      <div ref="menuItem" :class="{'no-mgRight':(index+1)%6===0}" v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
+      <div ref="menuItem" :class="{'no-mgRight':(index+1)%3===0}" v-for="(item,index) in routeList" :key="index" class="menu-item" :style="`color:#${randomColor};`" @click="toRouter(item.path)" >
         <span>{{item.info}}</span>
         <img class="menu-icon" src="@/assets/images/image1.png" alt="">
       </div>
@@ -26,6 +26,7 @@ export default {
       this.$router.push(router)
     },
     getData () {
+      console.log('myAxios',myAxios)
       myAxios.get('random?auth=null').then(res => {
         console.log(res)
       })
@@ -45,10 +46,11 @@ export default {
   mounted () {
     this.getData()
     this.getPageList()
-    this.$nextTick(_=>{
-      console.log('menuItem',this.$refs.menuItem[1])
-    })
-    
+    // this.$nextTick(_=>{
+    //   console.log('menuItem',this.$refs.menuItem[1])
+    // })
+    console.log('jqAjax',jqAjax);
+  
   }
 }
 
@@ -77,14 +79,16 @@ h3{
   display:flex;
   flex-wrap:wrap;
   word-break:break-all;
+  padding :10px;
 }
 .menu-item{
   display:flex;
   flex-direction: column;
   align-items: center;
   cursor:pointer;
-  margin-right:20px;
+  margin:0 20px 20px 0px;
   text-align:center;
+  border: 2px solid orange;
   &.no-mgRight{
     margin-right: 0;
   }

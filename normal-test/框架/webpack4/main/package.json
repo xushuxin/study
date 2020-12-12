@@ -1,0 +1,74 @@
+{
+  "name": "day1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --env.development --config ./webpack.base.js",
+    "build": "webpack --env.production --config ./webpack.base.js",
+    "build:vue": "webpack --config ./vue.dll_config.js",
+    "dev:server": "webpack-dev-server --env.development --config ./webpack.base.js",
+    "multipage:server": "webpack-dev-server --progress --env.development --config ./webpack-multipage.base.js",
+    "multipage:dev": "webpack --env.development --config ./webpack-multipage.base.js",
+    "multipage:build": "webpack --env.production --config ./webpack-multipage.base.js"
+  },
+  "pages": {
+    "index": {
+      "template": "./template/index.html",
+      "filename": "index.html",
+      "title": "首页",
+      "entry": "./src/index.js"
+    },
+    "other": {
+      "template": "./template/other.html",
+      "filename": "other.html",
+      "title": "其他页",
+      "entry": "./src/other.js"
+    },
+    "other2": {
+      "filename": "other2.html",
+      "title": "其他页2",
+      "entry": "./src/other2.js"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.12.5",
+    "dayjs": "^1.9.7",
+    "jquery": "^3.5.1",
+    "mathjs": "^8.1.0",
+    "moment": "^2.29.1",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "css-minimizer-webpack-plugin": "^1.1.5",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "less": "^3.12.2",
+    "less-loader": "^7.1.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "nunjucks": "^3.2.2",
+    "postcss": "^8.1.9",
+    "postcss-loader": "^4.1.0",
+    "postcss-preset-env": "^6.7.0",
+    "stats-webpack-plugin": "^0.7.0",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^4.2.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.44.2",
+    "webpack-bundle-analyzer": "^4.2.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^5.4.0"
+  }
+}
