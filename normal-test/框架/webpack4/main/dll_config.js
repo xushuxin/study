@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   mode: "production",
   entry: {
-    vue: ['vue'],
+    vue: ['vue'], //必须是数组格式
     mathjs: ['mathjs']
   },
   output: {

@@ -21,15 +21,13 @@ function showImage(el, imgSrc) {
   console.log('加载了图片')
   el.src = imgSrc;
   el.isLoaded = true;
+  //停止监听该元素
+  observer.unobserve(el);
 }
 export default {
   inserted(el, binding) {
     el.src = baseImg;
     el.dataset.src = binding.value;
-    observer.observe(el);
-  },
-  unbind(el) {
-    //停止监听
     observer.observe(el);
   }
 }

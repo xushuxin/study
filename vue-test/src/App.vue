@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 #app {
   width:100%;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

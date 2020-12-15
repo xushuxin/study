@@ -1,11 +1,7 @@
 /**自定义指令v-imgLazy实现图片懒加载**/
 <template>
   <div>
-    <md-swiper :autoplay="0">
-      <md-swiper-item  v-for="(item,index) in imgSrc" :key="index">
-        <img v-imgLazy="item" alt="">
-      </md-swiper-item>
-    </md-swiper>
+        <img v-imgLazy="item" alt="" v-for="(item,index) in imgSrc" :key="index">
     <!-- <div class="" v-for="(item,index) in imgSrc" :key="index">
       <img class="lazy-load"  src="~img/default-image.png" :data-src="item" alt="">
     </div> -->
@@ -13,11 +9,8 @@
 </template>
 
 <script type="text/javascript">
-import {Swiper,SwiperItem} from 'mand-mobile';
 export default {
   components:{
-    [Swiper.name]:Swiper,
-    [SwiperItem.name]:SwiperItem,
   },
   data() {
     return {

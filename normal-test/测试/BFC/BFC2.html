@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BFC处理上下元素外间距重叠的问题</title>
   <style>
-    .blue, .red-inner {
+    .red-inner {
       height: 50px;
       margin: 10px 0;
     }
+    
     .blue {
+      height: 50px;
+      margin: 10px 0;
       background: blue;
     }
-    .red-innner{
+    
+    .red-innner {
       background: red;
     }
-     /* 2.这里设置外层div overflow:hidden；*/
+    /* 2.这里设置外层div overflow:hidden；*/
+    
     .red-outer {
       overflow: hidden;
-      
     }
   </style>
 </head>
+
 <body>
   <div class="blue"></div>
   <!-- 1.这里必须有一个外层div -->
@@ -29,4 +35,5 @@
     <div class="red-inner">red inner</div>
   </div>
 </body>
+
 </html>

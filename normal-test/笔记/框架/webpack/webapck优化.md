@@ -1,15 +1,17 @@
-### x㴆开发效率优化
+### 开发效率优化
 
-配置resolve.alias和module.noParse可以加快构建速度
+**配置resolve.alias和module.noParse可以加快构建速度**
 
-1. 如果我们每个页面都需要引入一个依赖，但是又不想自己手动引入，可以使用webpack自带的插件webpack.ProvidePlugin实现自动引入
+**optimization.splitChunks和DllPlugin都可以实现分包，并且DllPlugin可以加快构建速度**
+
+1. **如果我们每个页面都需要引入一个依赖，但是又不想自己手动引入，可以使用webpack自带的插件webpack.ProvidePlugin实现自动引入**
 
    webpack.config.js
 
    ```js
    plugins:[
      new webpack.ProvidePlugin({
-       '自定义变量名':'要自动引入的文件的路径'
+       '自定义变量名':'要设置自动引入的文件的路径'
      })
    ]
    ```
@@ -22,7 +24,7 @@
 
    3.遵循ESModule规范的，需要指定default或者对应的导出属性，如下面的myAxios
 
-   4.自动引入的文件导出的对象的一切属性包括其原型上的属性都可以单独设置自动引入
+   4.文件导出的对象的一切属性包括其原型上的属性都可以单独设置自动引入
 
    常用配置
 
@@ -41,7 +43,7 @@
 
    
 
-2. resolve.extensions (webpack自带配置)
+2. **resolve.extensions (webpack自带配置)**
 
    让webpack尝试按顺序解析配置的后缀名(引入文件时不需要写扩展名，可能会降低构建速度)
 
@@ -53,7 +55,7 @@
    }
    ```
 
-3. resolve.alias  设置绝对路径的别名（可以加快构建速度）
+3. **resolve.alias  设置绝对路径的别名（可以加快构建速度）**
 
     webpack.config.js
 
@@ -75,9 +77,10 @@
 
     + alias配置的别名在webpack配置文件中也可以使用
 
-4. resolve.modules  配置优先查找的目录（绝对路径）
+4. **resolve.modules  配置优先查找的目录（绝对路径）**
 
     可以指定自定义的目录，打包时优先查找该目录，查找不到再到node_modules文件夹查找:
+    设置绝对路径的modules效果与alias的差不多，都可以加快构建速度
 
     ```js
     const path =require('path');
@@ -90,7 +93,7 @@
     }
     ```
 
-5. module.noParse 让webpack不解析指定正则匹配的文件(可以加快构建速度)
+5. **module.noParse 让webpack不解析指定正则匹配的文件(可以加快构建速度)**
 
     + 忽略的文件中不应该包含任何导入机制（import,require,define以及其他的导入机制）
 
@@ -103,7 +106,7 @@
     }
     ```
 
-6. webpack.DefinePlugin 在编译时定义一些全局常量（根据环境不同设置不同的值）
+6. **webpack.DefinePlugin 在编译时定义一些全局常量（根据环境不同设置不同的值）**
 
     ```js
     const webpack = require('webpack');
@@ -131,7 +134,7 @@
 
       eval('OPTIONS={PARAMS1:JSON.stringify(1)}')//获取的1是字符串
 
-7. thread-loader  多进程打包，用于耗时比较长的loader
+7. **thread-loader  多进程打包，用于耗时比较长的loader**
 
    +  @vue/cli create-reat-app都已经内置了
 
@@ -139,7 +142,7 @@
 
    + @vue/cli 会在系统的cpu有多于一个内核时自动为Babel或者TypeScript启用thread-loader，仅作用于生产构建
    
-8. webpack.IgnorePlugin 在打包时忽略指定文件
+8. **webpack.IgnorePlugin 在打包时忽略指定文件**
 
     moment仅引入中文包的优化
 
@@ -157,7 +160,7 @@
     import "moment/locale/zh-cn";
     ```
 
-9. optimization.splitChunks 分包的配置
+9. **optimization.splitChunks 分包的配置**
 
     + 如果我们不想使用resolve.externals排除一个包，单独使用CDN引入，也可以使用splitChunk把这个包抽离成一个单独的文件
     
@@ -170,31 +173,56 @@
             minSize:10000,//包最小10kb才单独拆分出来
             minChunks:1,//只要引用1次的包就可以拆分出来
             cacheGroups:{
-            	lodash:{
+            	lodash:{//先抽离一些模块
             		filename:'[name].[hash].js',
             		test:/lodash/,
-            		chunks:'all'
+            		chunks:'all'，
+                priority: -1,
+                enforce: true 
           		},
               moment:{
                 filename:'[name].[hash].js',
                 test:/moment/,
-                chunks:'all'
-              }
+                chunks:'all'，
+                priority: -1,
+                enforce: true 
+              }，
+              vendors: { //抽离vendor.js
+              name: 'vendors',
+                chunks: 'initial',
+              test: /[\\/]node_modules[\\/]/,
+                priority: -2,
+            	enforce: true 
+              },
+            common: { //最后抽离common.js
+                name: 'common',
+                chunks: 'initial',
+                minSize: 0,
+                minChunks: 2, //引用两次才抽离
+                priority: -3,
+                enforce: true //
+              },
           	}
           }
         }
       }
       ```
+      
+      + **chunks**的含义是拆分模块的范围，有三个值：async、initial、all
+      
+      ​	async：只从异步加载的模块里面进行拆分（import()）
+      
+      ​	initial：只从入口模块进行拆分
+      
+      ​	all：表示以上两者都包括(异步和同步可以共用chunk)
+      
+      + **priority**  代表优先级，优先级高的先进行抽离
+      
+      + **enforce**  自定义分包时，最好都设置为true，强制分包(如果不设置，webpack会根据minSize, minChunks,maxAsyncRequests，maxInitialRequests 调整你的打包结果)
+      + **minChunks**  抽离的包被引用指定次数次才会抽离
+      + **minSize**  最小分包的大小，没有达到要求的不分包
     
-      chunks的含义是拆分模块的范围，有三个值：async、initial、all
-    
-      async：只从异步加载的模块里面进行拆分（import()）
-    
-      initial：只从入口模块进行拆分
-    
-      all：表示以上两者都包括(异步和同步可以共用chunk)
-    
-10. DllPlugin  动态链接库  
+10. **DllPlugin  动态链接库**  
 
     + 实现分包
 
@@ -270,22 +298,112 @@
     最后，注意点：
 
     + 本地使用devServer进行内存打包时，需要配置devServer.contentBase为动态链接库生成的目录，否则无法找到生成我们提前生成的库文件
+
     + 如果要拆分多个包 需要创建多个 webpack.DllReferencePlugin，分别指定对应的manifest文件（生成时也要生成多个）
+
+      ##### 拆分多个包：
+
+      dll.config.js
+
+      ```JS
+      const path = require('path');
+      const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+      const webpack = require('webpack');
+      module.exports = {
+        mode: "production",
+        entry: {
+          vue: ['vue'], //必须是数组格式
+          mathjs: ['mathjs']
+        },
+        output: {
+          filename: 'dll_[name].js',
+          path: path.resolve(__dirname, 'multiPageDist'),
+          library: 'dll_[name]'
+        },
+        plugins: [
+          new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['dll_*', '*-mainfest.json']
+          }),
+          new webpack.DllPlugin({ //根据对应的库名，生成对应映射文件
+            name: 'dll_[name]', //需要和上面的library保持一致
+            path: path.resolve(__dirname, 'multiPageDist', '[name]-manifest.json')
+          })
+        ]
+      }
+      ```
+
+      webpack主配置文件
+
+      ```js
+      new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, 'multiPageDist', 'vue-manifest.json')
+      }),
+        new webpack.DllReferencePlugin({
+        manifest: path.resolve(__dirname, 'multiPageDist', 'mathjs-manifest.json')
+      }),
+        new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: ["**/*", '!dll_*', '!*-manifest.json'], //不删除动态链接库相关文件
+      }),
+      ```
+
+      
 
 
 ### 性能优化
 
 #### 文件压缩配置
 
-css文件压缩：css-minimizer-webpack-plugin
+**css文件压缩：**css-minimizer-webpack-plugin
 
-js文件压缩：terser-webpack-plugin
+**js文件压缩**：terser-webpack-plugin
 
 ​		minimize设置为true时webpack会压缩js文件，生产模式minimize默认为true，webpack会使用自己默认的minimizer工具压缩，但是如果设置了minimizer配置项，代表我们使用自己的压缩工具，则webpack就不会默认压缩js了（不管是生产环境还是测试环境，也就是说我们使用了压缩css的插件，就必须重新使用其他插件压缩js）
 
+**删除无用的css:** npm i purgecss-webpack-plugin glob -D
+
+**需要配合mini-css-extract-plugin使用**
+
+```javascript
+let paths = glob.sync('./src/**/\*',{nodir:true})
+let PurgeCss = require('purgecss-webpack-plugin');
+new PurgeCss({
+   paths:paths
+})
+```
+
+**图片压缩：**  image-webpack-loader
+
+```js
+use:[
+  {loader:'file-loader'},
+  {loader:'image-webpack-loader',options: {
+    mozjpeg: {
+      progressive: true,
+    },
+    // optipng.enabled: false will disable optipng
+    optipng: {
+      enabled: false,
+    },
+    pngquant: {
+      quality: [0.65, 0.90],
+      speed: 4
+    },
+    gifsicle: {
+      interlaced: false,
+    },
+    // the webp option will enable WEBP
+    webp: {
+      quality: 75
+    }
+  }}
+]
+```
+
+
+
 #### 抽离文件，通过CDN方式引入
 
-externals  外部扩展，不打包指定模块，而是代码运行时从环境中获取
+**externals  外部扩展，不打包指定模块，而是代码运行时从环境中获取**
 
 外部引用可以是CDN，或者是相对路径的一个文件
 
@@ -308,18 +426,6 @@ import xxx from '自定义属性名'
 ```
 
 
-
-
-
-#### 代码分割（code-splitting）
-
-1. entry配置手动拆分代码
-
-2. 使用entry依赖项或者splitChunks对重复数据删除和拆分
-
-3. 动态导入
-
-   
 
 #### gzip压缩
 
@@ -344,6 +450,6 @@ import xxx from '自定义属性名'
    }),
    ```
 
-   注意：前端gzip压缩，只是生成了gz扩展名的文件，必须服务器开启gzip文件传输支持，才会加载我们压缩好的gz文件
+   注意：前端gzip压缩，只是生成了gz扩展名的文件，必须服务器开启gzip文件传输支持，才会加载我们压缩好的gz文件（或者服务器自己压缩，前端不用动）
 
    本地测试可以在打包输出目录下，通过http-server -g 开启支持gzip的本地服务器

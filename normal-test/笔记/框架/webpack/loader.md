@@ -1,20 +1,12 @@
 #### loader的原理和实现
 
 1. 设置loader的默认配置 lib/webpack.js
-
-2. 解析loader模块路径 node_modules
-
-3. 根据rule.modules创建RulesSer规则集
-
+2. 解析loader模块路径，默认到node_modules查找
+   + 直接把编写的loader放在node_modules下
+   + resolveLoader.alias 给loader设置别名
+   + resolveLoader.modules 设置查找loader的优先级，先查找node_modules，再查找我们指定的文件夹(推荐
+3. 根据rule.modules创建RulesSet规则集
 4. 使用loader-runner运行loader
-
-**解析webpack中loader的方式**
-
-```js
-1.直接把编写的loader放在node_modules下
-2.resolveLoader.alias 给loader设置别名
-3.resolveLoader.modules 设置查找loader的优先级，先查找node_modules，再查找我们指定的文件夹(最常用)
-```
 
 **loader.pitch**
 

@@ -33,4 +33,8 @@ export default{
 .my-input
   width 301.05678px
   letter-spacing 1px
+/* 父组件本来只可以修改子组件最外层的样式，使用 /deep/ 可以修改组件内部的样式*/
+.md-button.primary /deep/ .md-button-content{
+  color:#faa;
+}
 </style>  

@@ -17,7 +17,12 @@
     //监听所有属性后把所有的节点转移到文档片段上
     nodeToFragment(this.$el, this);
   }
-
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      name: '哈哈哈'
+    }
+  });
   //对data中的每一项进行数据劫持
   function observe(data) {
     if ({}.toString.call(data) !== "[object Object]") return;

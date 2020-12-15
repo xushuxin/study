@@ -83,14 +83,19 @@ module.exports = (env) => {
           ],
         },
         {
-          test: /\.(png|jp(e)?g|gif|ico|svg)$/i,
+          test: /\.(png|jp(e)?g|gif|ico|svg|eot|ttf|woff|woff2)$/i,
           use: [{
             loader: "url-loader",
             options: {
+              esModule: false, //不需要按照模块导出
               limit: 10 * 1024, //单位是Bit,小于10kb转为base64,大于10kb用file-loader生成图片资源
               name: "image/[name].[hash:5].[ext]", //file-load的配置，当图片大于limit指定大小时生效，生成图片的路径及名称（相对于webpack输出目录）
             },
           }, ],
+        },
+        { //加载html页面引入的图片
+          test: /\.(html|htm)$/,
+          use: 'html-withimg-loader'
         },
         {
           test: /\.js$/,
@@ -130,26 +135,47 @@ module.exports = (env) => {
         minSize: 10000, //包最小10kb才可以单独拆分出来
         minChunks: 1, //只要被引用1次的包就可以拆分出来
         cacheGroups: {
-          jquery: { //因为我们使用了externals把jQuery从打包文件中去除了，所以，这里是拿不到jquery的
-            filename: '[name].[hash:6].js',
-            test: /jquery/,
-            chunks: 'all'
-          },
+          default: false, //取消默认缓存组配置
+          // jquery: { //因为我们使用了externals把jQuery从打包文件中去除了，所以，这里是拿不到jquery的
+          //   filename: '[name].[hash:6].js',
+          //   test: /jquery/,
+          //   chunks: 'all'
+          // },
           lodash: {
             filename: '[name].[hash:6].js',
             test: /lodash/,
-            chunks: 'all'
+            chunks: 'all',
+            priority: -1,
+            enforce: true
           },
           moment: { //当前案例中使用了IgnorePlugin，所以仅打包使用到的moment/local/zh-cn
             filename: '[name].[hash:6].js',
             test: /moment/,
-            chunks: 'all'
+            chunks: 'all',
+            priority: -1, //优先级，高的先抽离
+            enforce: true
           },
-          // mathjs: {
-          //   filename: '[name].[hash].js',
-          //   test: /mathjs/,
-          //   chunks: 'all'
-          // }
+          vendors: { //抽离vendor.js
+            name: 'vendors',
+            chunks: 'initial',
+            test: /[\\/]node_modules[\\/]/,
+            priority: -2,
+            enforce: true
+          },
+          common: { //抽离common.js
+            name: 'common',
+            chunks: 'all',
+            minSize: 0,
+            minChunks: 2, //引用两次才抽离
+            priority: -3,
+            enforce: true //强制分包(如果不设置，webpack会根据minSize, minChunks,maxAsyncRequests，maxInitialRequests 调整你的打包结果)
+          },
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
+          }
         }
       }
     }
