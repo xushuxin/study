@@ -37,8 +37,89 @@
       <div>3</div>
     </div>
   </div>
-  <script src="./test.js"></script>
+  <!-- <script src="./test.js"></script> -->
+  <script>
+    // let t = setTimeout(() => {
+    //   console.log(1111)
+    //   let t1 = setTimeout(() => {
+    //     console.log(2222)
+    //     let t2 = setTimeout(() => {
+    //       console.log(3333)
+    //     }, 3000)
+    //   }, 2000)
+    // }, 1000)
 
+    //promise解决回调地狱
+    let fn1 = function() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(1111);
+          resolve({
+            params: 1111
+          });
+        }, 1000)
+      })
+    };
+    let fn2 = function() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(2222);
+          resolve({
+            params: 2222
+          });
+        }, 2000)
+      })
+    };
+    let fn3 = function() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(3333);
+          resolve({
+            params: 3333
+          });
+        }, 3000)
+      })
+    };
+    //promise解决回调地狱
+    // fn1().then(res => {
+    //   return fn2()
+    // }).then(res => {
+    //   return fn3();
+    // });
+
+    /*   //async解决回调地狱
+      async function flushFn() {
+        await fn1();
+        await fn2();
+        await fn3();
+      }
+     flushFn(); */
+
+    //generate函数解决回调
+    function* generatorFn(params1) {
+      console.log(params1)
+      let params2 = yield fn1();
+      console.log(params2)
+      let params3 = yield fn2();
+      console.log(params3)
+      let params4 = yield fn3(params3);
+      console.log(params4)
+    }
+
+    function autoCallNext(generatorFn, x) {
+      const iterator = generatorFn(x);
+
+      function next(x) {
+        const {
+          value: promise,
+          done
+        } = iterator.next(x);
+        !done && promise.then(next)
+      }
+      next();
+    }
+    autoCallNext(generatorFn, 0)
+  </script>
 </body>
 
 </html>

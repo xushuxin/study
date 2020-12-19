@@ -122,7 +122,7 @@ module.exports = {
     //"vue-router": "VueRouter",
     //"echarts": "echarts",
     {
-      'vue': 'Vue',
+      // 'vue': 'Vue',
       'jquery': 'jQuery',
       'axios': 'axios',
       'element-ui': 'ELEMENT',

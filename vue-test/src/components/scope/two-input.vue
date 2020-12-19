@@ -1,7 +1,20 @@
 <template>
   <div class="">
-    <input type="text" v-model="val1">
-    <input type="text" v-model="val2">
+    <input type="text" v-model.trim = "value" @blur="doblur" @input="doInput" @change="doChange">
+    <input type="text" v-model = "val2">
+    <!-- 以下测试v-model原理 -->
+    <!-- <input type="checkbox" v-model="val3" @input="doInput" @change="doChange">
+    <input type="radio" value="1" v-model="val4" @input="doInput" @change="doChange">
+    <input type="radio" value="2" v-model="val4" @input="doInput" @change="doChange">
+    <div id="example-5">
+      <select v-model="selected" @change="doChange" @input="doInput"> 
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+    </div> -->
   </div>
 </template>
 
@@ -11,7 +24,13 @@ export default {
     return {
       val2:'',
       val1:'',
+      val3:'',
+      val4:'',
+      selected:''
     }
+  },
+  props:{
+    value:''
   },
   components: {
 
@@ -25,6 +44,7 @@ export default {
   },
   computed:{
     val(){
+      console.log(typeof this.val1)
       return this.val1 + ' ' + this.val2;
     }
   },
@@ -38,8 +58,14 @@ export default {
 
   },
   methods:{
-    doInput(){
-      
+    doInput(e){
+      console.log('input value:',this.val);
+    },
+    doChange(e){
+      console.log('change value',this.val);
+    },
+    doblur(){
+      console.log('blur')
     }
   }
 }

@@ -22,6 +22,7 @@ export default {
     }
   },
   props:{
+    //这里已定义prop接收的属性不包含在$attrs里面
     value:{
       type:String,
       default:''

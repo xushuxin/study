@@ -1,7 +1,7 @@
 /**两个输入框的组件双向绑定**/
 <template>
   <div class="">
-    <two-input v-model.lazy="inputValue"></two-input>
+    <two-input v-model="inputValue"></two-input>
     <div>{{inputValue}}</div>
   </div>
 </template>

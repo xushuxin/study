@@ -7,10 +7,11 @@
 -->
   <div>
     <button @click="getValue">获取输入的值</button>
-    <base-input :name="name" @focus="onFocus" v-model="value" @changeShowName="changeName"></base-input>
+    <base-input :name="name" @focus="onFocus" v-model="value" @changeShowName="changeName"  @input="getInputValue"></base-input>
     <div>
       名字：{{name}}
     </div>
+    <div>输入框的值：{{value}}</div>
   </div>
 </template>
 
@@ -40,6 +41,9 @@ export default {
     },
     getValue(){
       alert(this.value)
+    },
+    getInputValue(e){
+      console.log(e)
     },
     changeName(value){
       this.name=value

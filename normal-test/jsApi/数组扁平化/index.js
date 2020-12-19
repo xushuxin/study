@@ -10,17 +10,28 @@ var arr = [
 
 /**1.扁平化数组 */
 //①ES10新特性Array.prototype.flat(deepIndex)
-var resArr = arr.flat(Infinity);
-console.log('扁平化结果', resArr);
+var flatedArr = arr.flat(Infinity);
+console.log('扁平化结果', flatedArr);
+
 //②reduce+concat+isArray+recursivity(递归)
-// function flatArr(arr,tempArr){
-//   return arr.reduce((res,item)=>
-//     res.concat(Array.isArray(item)?flatArr(item):item)
-//   ,[])
-// }
-// var resArr=flatArr(arr,[])
-// console.log('扁平化结果',resArr)
-let resArrSet = [...new Set(resArr)];
+function flatArr(arr, tempArr) {
+  return arr.reduce((res, item) =>
+    res.concat(Array.isArray(item) ? flatArr(item) : item), [])
+}
+var flatedArr = flatArr(arr, [])
+console.log('扁平化结果', flatedArr);
+
+//③使用generator函数
+function* flatGenerator(arr) {
+  for (var item of arr) {
+    Array.isArray(item) ? yield* flatGenerator(item) : yield item;
+  }
+}
+var iterator = flatGenerator(arr);
+var flatedArr = [...iterator];
+console.log('扁平化结果：', flatedArr);
+
+let resArrSet = [...new Set(flatedArr)];
 console.log('去重结果', resArrSet)
 
 /**3.升序排列 */

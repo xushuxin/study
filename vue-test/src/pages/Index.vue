@@ -50,7 +50,7 @@ export default {
     //   console.log('menuItem',this.$refs.menuItem[1])
     // })
     console.log('jqAjax',jqAjax);
-  
+    console.log('vue实例：',this)
   }
 }
 
