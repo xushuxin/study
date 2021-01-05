@@ -15,18 +15,15 @@
       self.PromiseState = state;
       self.PromiseResult = value;
       //异步任务完成后，会调用resolve/reject,此时我们把之前then执行时存入的onFulfilledCallbacks/onRejectedCallbacks队列的函数依次执行（正常项目中，队列中只有一个函数，一个pending状态的的promise实例调用几次then，队列中就有几个成功/失败回调，顺序为调用then的顺序），并且执行也是异步的
-      setTimeout(function() {
-        for (var i = 0; i < callbacks.length; i++) {
-          let itemFn = callbacks[i];
-          if (typeof itemFn === 'function') itemFn(value);
-        }
-      })
+      for (var i = 0; i < callbacks.length; i++) {
+        callbacks[i](value);
+      }
     };
 
     //执行resolve/reject都是修改当前实例的状态和结果,状态一旦改变，就不能再次修改状态
     var resolve = function resolve(value) {
-      //如果是要resolve的是一个promise，采用其状态和结果
-      if (isPromise(value)) return value.then(resolve, reject);
+      //如果是要resolve的是一个当前Promise的实例，采用其状态和结果
+      if (value instanceof Promise) return value.then(resolve, reject);
       run("fulfilled", value, self.onFulfilledCallbacks)
     }
     var reject = function reject(reason) {
@@ -53,23 +50,30 @@
   function resolvePromise(promise, x, resolve, reject) {
     //如果onfulfilled、onrejected方法执行的返回值和创建的新实例是同一个东西，则产生死循环，我们直接让其报错
     if (x === promise) {
-      throw new TypeError("Chaining cycle detected for promise #<Promise>");
+      return reject(new TypeError("Chaining cycle detected for promise #<Promise>"));
     }
     //如果是一个对象/函数
     if (x !== null && typeof x === "object" || typeof x === "function") {
+      var called = false;
       try { //try...catch防止访问then属性报错
         var then = x.then;
         if (typeof then === "function") {
           //返回结果是一个新的promise实例（不一定是自己构建的，也可能是别人构建的）
           then.call(x, function(y) {
+            if(called) return;
+            called = true;
             resolvePromise(promise, y, resolve, reject);
           }, function(r) {
+            if(called) return;
+            called = true;
             reject(r);
           })
         } else {
           resolve(x);
         }
       } catch (err) {
+        if(called) return;
+        called = true;
         reject(err);
       }
 
@@ -130,20 +134,24 @@
             // self.onRejectedCallbacks.push(onrejected);
             // 现在处理方案：向容器中存储一些匿名函数，后期状态改变后，先把匿名函数执行（给匿名函数传递PromiseResult）,我们在匿名函数中再把最后需要执行的onfulfilled、onrejected执行，这样达到了相同的结果，但是我们可以监听onfulfilled、onrejected执行是否报错和他们的返回值了
             self.onFulfilledCallbacks.push(function(PromiseResult) {
-              try {
-                var x = onfulfilled(PromiseResult); //获取成功回调的结果
-                resolvePromise(promise, x, resolve, reject);
-              } catch (err) {
-                reject(err)
-              }
+              setTimeout(function(){
+                try {
+                  var x = onfulfilled(PromiseResult); //获取成功回调的结果
+                  resolvePromise(promise, x, resolve, reject);
+                } catch (err) {
+                  reject(err)
+                }
+              })
             })
             self.onRejectedCallbacks.push(function(PromiseResult) {
-              try {
-                var x = onrejected(PromiseResult); //获取失败回调的结果
-                resolvePromise(promise, x, resolve, reject);
-              } catch (err) {
-                reject(err);
-              }
+              setTimeout(function(){
+                try {
+                  var x = onrejected(PromiseResult); //获取失败回调的结果
+                  resolvePromise(promise, x, resolve, reject);
+                } catch (err) {
+                  reject(err);
+                }
+              })
             })
             break;
         }
@@ -216,6 +224,16 @@
   var _global = typeof window !== "undefined" ? window : global;
   _global.Promise = Promise;
 })();
+
+//测试
+Promise.deferred = function(){
+  let deferred = {};
+  deferred.promise = new Promise((resolve,reject)=>{
+    deferred.resolve = resolve;
+    deferred.reject = reject;
+  })
+  return deferred;
+}
 module.exports = Promise;
 
 /* //测试resolve的结果是一个promise

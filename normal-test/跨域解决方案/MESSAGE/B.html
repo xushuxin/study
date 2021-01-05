@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page B</title>
+</head>
+<body>
+  <script>
+    //监听A页面的信息，注意应该判断origin是否与预期一致
+    //并且验证origin后，应该始终验证接收到的消息的语法，否则受信任的网站中的安全漏洞可能会在您的网站中打开跨网站脚本漏洞
+    window.onmessage=function(ev){
+      console.log(ev.origin);
+      console.log(ev.data)
+      if(ev.origin!=='http://127.0.0.1:1001') return;
+      //还需要进行参数信息校验
+      if(typeof ev.data !== 'string') return;
+      // ev.source => A页面
+      //返回数据给A页面
+      ev.source.postMessage(ev.data+'@@@',ev.origin)
+    }
+  </script>
+</body>
+</html>

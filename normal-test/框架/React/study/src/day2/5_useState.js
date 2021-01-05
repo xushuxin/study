@@ -11,6 +11,7 @@ function App() {
   var [count, setCount] = useState(100);//第一个是要使用的值，第二个是更新函数
   var [count2, setCount2] = useState(66);//每一个参数都有自己的独立的hooks
   let objRef = useRef();//useRef的使用
+  objRef.current = count;
   function add() {
     setCount(++count);
     setCount2(++count2);
@@ -123,7 +124,7 @@ function Counter4(){
     <div>{count}</div>
   </div>
 }
-// ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
 // ReactDOM.render(<Counter />, document.getElementById('root'))
 // ReactDOM.render(<Counter2 />, document.getElementById('root'))
-ReactDOM.render(<Counter4 />, document.getElementById('root'))
+// ReactDOM.render(<Counter4 />, document.getElementById('root'))

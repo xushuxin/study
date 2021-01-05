@@ -18,6 +18,12 @@ a = a + b;
 b = a - b;
 a = a - b;
 console.log(a, b);
+//4.异或运算符
+var a =1 ,b=2;
+a=a^b;
+b=a^b;
+a=b^a;
+console.log(a,b)
 
 /* 1.冒泡排序
   时间复杂度 指的是最高的复杂度O(n²)

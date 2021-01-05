@@ -12,6 +12,7 @@
 
 <body>
   <div id="app"></div>
+ 
   <!-- built files will be auto injected -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
   <!-- 引入组件库 -->
@@ -19,6 +20,35 @@
   <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
   <script src="https://unpkg.com/axios@0.21.0/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mand-mobile@2.5.13/lib/mand-mobile.umd.min.js"></script>
+  <script>
+    window.onload=function(){
+      setTimeout(()=>{
+    let timing = performance.timing,
+          start = timing.navigationStart,
+          dnsTime = 0,
+          tcpTime = 0,
+          firstPaintTime = 0,
+          domRenderTime = 0,
+          loadTime = 0;
+      console.log(performance)
+      console.log(timing)
+      dnsTime = timing.domainLookupEnd - timing.domainLookupStart;
+      tcpTime = timing.connectEnd - timing.connectStart;
+      firstPaintTime = timing.responseStart - start;
+      domRenderTime = timing.domContentLoadedEventEnd - start;
+      loadTime = timing.loadEventEnd - start;
+
+      console.log('DNS解析时间:', dnsTime, 
+                  '\nTCP建立时间:', tcpTime, 
+                  '\n首屏时间:', firstPaintTime,
+                  '\ndom渲染完成时间:', domRenderTime, 
+                  '\n页面onload时间:', loadTime);
+   })
+    }
+   
+      
+    
+  </script>
 </body>
 
 </html>

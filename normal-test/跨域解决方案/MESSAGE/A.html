@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page A</title>
+</head>
+<body>
+  <div>Page A</div>
+  <iframe id="iframe" src="http://127.0.0.1:1002/MESSAGE/B.html" frameborder="0"></iframe>
+  <script>
+    // ifrme加载后页面后再向B页面发送请求
+    iframe.onload=function(){
+      // 使用postMessage将数据发送到其他窗口时，始终指定精确的目标origin，而不是*。 恶意网站可以在您不知情的情况下更改窗口的位置，因此它可以拦截使用postMessage发送的数据。
+      iframe.contentWindow.postMessage('珠峰珠峰','http://127.0.0.1:1002')
+    }
+    //监听B页面的信息，获取返回信息
+    window.onmessage = function(ev){
+      if(ev.origin!=='http://127.0.0.1:1002') return;
+      if(typeof ev.data !=='string') return;
+      console.log(ev.data);
+    }
+  </script>
+</body>
+</html>

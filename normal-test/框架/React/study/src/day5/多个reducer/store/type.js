@@ -1,0 +1,2 @@
+export const CHNANGECOLOR = 'CHNANGECOLOR'
+export const CHNANGECOUNT = 'CHNANGECOUNT'

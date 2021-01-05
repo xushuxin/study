@@ -1,0 +1,12 @@
+{
+  "name": "Promise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Promise.all.js",
+  "scripts": {
+    "test": "promises-aplus-tests 完整版"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

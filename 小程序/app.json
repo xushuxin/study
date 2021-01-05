@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/news/news"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#aca9a5",
+    "navigationBarTitleText": "前端学废了",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "color":"#000",
+    "selectedColor":"#aca9a5",
+    "borderStyle":"black",
+    "list":[
+      {
+        "pagePath":"pages/index/index",
+        "text":"首页",
+        "iconPath":"imgs/index.png",
+        "selectedIconPath":"imgs/index.png"
+      },
+      {
+        "pagePath":"pages/logs/logs",
+        "text":"日志",
+        "iconPath":"imgs/logs.png",
+        "selectedIconPath":"imgs/logs.png"
+      },
+      {
+        "pagePath":"pages/news/news",
+        "text":"新闻",
+        "iconPath":"imgs/logs.png",
+        "selectedIconPath":"imgs/logs.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

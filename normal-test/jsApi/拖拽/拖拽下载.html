@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.visually-hidden {
+		  position: absolute !important;
+		  height: 1px;
+		  width: 1px;
+		  overflow: hidden;
+		  clip: rect(1px, 1px, 1px, 1px);
+		}
+
+		/* Separate rule for compatibility, :focus-within is required on modern Firefox and Chrome */
+		input.visually-hidden:focus + label {
+		  outline: thin dotted;
+		}
+		input.visually-hidden:focus-within + label {
+		  outline: thin dotted;
+		}
+	
+	</style>
+</head>
+<body>
+	<input type="file" id="fileElem" multiple accept="image/*" class="visually-hidden">
+	<label id="fileLable" for="fileElem">Select some files</label>
+	<div class="flex-box">
+		<div class="box box-1"></div>
+		<div class="box box-2"></div>
+		<div class="box box-3"></div>
+	</div>
+	
+
+	<script type="text/javascript">
+		(function(){
+			let dropbox;
+
+			dropbox = document.getElementById("fileLable");
+			dropbox.addEventListener("dragenter", dragenter, false);
+			dropbox.addEventListener("dragover", dragover, false);
+			dropbox.addEventListener("drop", drop, false);
+			function dragenter(e) {
+			  e.stopPropagation();
+			  e.preventDefault();
+			}
+
+			function dragover(e) {
+			  e.stopPropagation();
+			  e.preventDefault();
+			} 
+			function drop(e) {
+			  e.stopPropagation();
+			  e.preventDefault();
+
+			  var dt = e.dataTransfer;
+			  var files = dt.files;
+
+			  handleFiles(files);
+			}
+			function handleFiles(files){
+				console.log(files)
+			}
+		})();
+		
+	</script>
+</body>
+</html>

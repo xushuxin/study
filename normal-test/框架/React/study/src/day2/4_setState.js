@@ -12,7 +12,7 @@ class App extends React.Component{
       count:this.state.count+1
     },function(){
       //当数据更新触发这个函数
-      console.log('视图已更新',this.state.count)
+      console.log('数据已更新',this.state.count)
     })
   }
   minus(){

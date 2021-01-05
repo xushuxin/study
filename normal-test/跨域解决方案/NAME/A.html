@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <iframe style="display: none;" id ="iframe" src="http://127.0.0.1:1002/NAME/B.html" frameborder="0"></iframe>
+  <script>
+    //onload会触发两次
+    let count = 0;
+    iframe.onload =function(){
+      if(count===0){
+        //需要我们先把src指向同源地址才可以获取页面的name（修改src不会改变window.name）
+        iframe.src="http://127.0.0.1:1001/NAME/proxy.html";
+        count++;
+        return;
+      }
+      //第二次才获取name的值（也就是B页面的传值）
+      console.log(iframe.contentWindow.name)
+    }
+  </script>
+</body>
+</html>

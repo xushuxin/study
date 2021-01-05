@@ -1,0 +1,17 @@
+{
+  "name": "study-cli",
+  "version": "1.0.0",
+  "description": "脚手架搭建",
+  "main": "index.js",
+  "bin": {
+    "lq": "./index.js"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "xin",
+  "license": "ISC"
+}

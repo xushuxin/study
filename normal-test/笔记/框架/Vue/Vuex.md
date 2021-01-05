@@ -12,7 +12,7 @@ State：定义了应用状态的数据结构，可以在这里设置默认的初
 
 Getter：从store的state中派生出来的一些状态（可以认为是store的计算属性），当依赖值发生改变时，会跟着一起改变，mapGetters辅助函数仅仅是将store中的getter映射到局部计算属性
 
-Mutation:是更改store中状态的唯一方法，并且必须是同步函数
+Mutation:是更改store中state的唯一方法，并且必须是同步函数
 
 Action：用于提交mutation，而不是直接变更状态，可以包含任意异步操作（所以我们一般用来统一管理接口请求）
 

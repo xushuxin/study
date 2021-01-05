@@ -122,12 +122,11 @@ module.exports = {
     //"vue-router": "VueRouter",
     //"echarts": "echarts",
     {
-      // 'vue': 'Vue',
+      'vue': 'Vue',
       'jquery': 'jQuery',
       'axios': 'axios',
       'element-ui': 'ELEMENT',
       'mand-mobile': `window['mand-mobile']`, //mand-mobile暴露的不是正常变量规则，需要我们自己用window去获取
-      // 'mathjs': 'mathjs', //mathjs并没有暴露全局变量所以没有办法使用全局对象属性方式获取
     },
 
   ]

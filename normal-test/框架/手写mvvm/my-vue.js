@@ -1,9 +1,7 @@
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ?
-    module.exports = factory() :
-    typeof define === "function" && define.amd ?
-    define(factory) :
-    (global = global || self, global.Vue = factory());
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = global || self, global.Vue = factory());
 })(this, function factory() {
   /**
    * 思路：1.Vue本身是一个类,传递一个对象,el代表元素的选择器，data是我们定义的数据
@@ -17,18 +15,60 @@
     //监听所有属性后把所有的节点转移到文档片段上
     nodeToFragment(this.$el, this);
   }
-  var vm = new Vue({
-    el: '#app',
-    data: {
-      name: '哈哈哈'
-    }
-  });
   //对data中的每一项进行数据劫持
   function observe(data) {
     if ({}.toString.call(data) !== "[object Object]") return;
     Object.entries(data).forEach(([key, value]) => {
       defineReactive(data, key, value);
     });
+  }
+  //订阅器
+  class Dep {
+    constructor() {
+      this.subs = []; //创建订阅池
+    }
+    addSub(sub) { //负责把观察者添加到订阅池中
+      this.subs.push(sub);
+    }
+    notify() { //负责通知所有观察者更新
+      this.subs.forEach(sub => {
+        sub.update();
+      })
+    }
+  }
+
+  //创建一个观察者类（在编译模板获取data中的值的时候创建其实例）
+  class Watcher {
+    constructor(node, key, vm) {
+      Dep.target = this; //存储当前观察者实例
+      this.node = node;
+      this.key = key;
+      this.vm = vm;
+      this.getValue(); //获取当前观察的属性的属性值，触发该属性的get函数执行
+      Dep.target = null; //在get函数中把当前观察者实例添加到订阅池中后，防止重复添加，要把Dep.target置空
+    }
+
+    //负责更新DOM
+    update() {
+      this.getValue(); //获取最新的值
+
+      if (this.node.nodeType === 1) { //元素节点
+        //只考虑input框
+        this.node.value = this.value;
+      } else {
+        let str = this.node.originTextContent;
+        let reg = /\{\{\s?(\w+)\s?\}\}/g;
+        if (!reg.test(str)) return; //如果没有{{}}这种语法直接不作处理
+        //把{{}}语法转换为对应的data中的属性值
+        str = str.replace(reg, function(...[, $1]) {
+          return vm.$data[$1]; //获取到属性的对应的值返回
+        });
+        this.node.textContent = str;
+      }
+    }
+    getValue() {
+      this.value = this.vm.$data[this.key]; //会触发key属性的get函数
+    }
   }
   //数据劫持的主要逻辑
   function defineReactive(data, key, value) {
@@ -97,55 +137,6 @@
         return vm.$data[$1]; //获取到属性的对应的值返回
       });
       node.textContent = str;
-    }
-  }
-
-  //订阅器
-  class Dep {
-    constructor() {
-      this.subs = []; //创建订阅池
-    }
-    addSub(sub) { //负责把观察者添加到订阅池中
-      this.subs.push(sub);
-    }
-    notify() { //负责通知所有观察者更新
-      this.subs.forEach(sub => {
-        sub.update();
-      })
-    }
-  }
-
-  //创建一个观察者类（在编译模板获取data中的值的时候创建其实例）
-  class Watcher {
-    constructor(node, key, vm) {
-      Dep.target = this; //存储当前观察者实例
-      this.node = node;
-      this.key = key;
-      this.vm = vm;
-      this.getValue(); //获取当前观察的属性的属性值，触发该属性的get函数执行
-      Dep.target = null; //在get函数中把当前观察者实例添加到订阅池中后，防止重复添加，要把Dep.target置空
-    }
-
-    //负责更新DOM
-    update() {
-      this.getValue(); //获取最新的值
-
-      if (this.node.nodeType === 1) { //元素节点
-        //只考虑input框
-        this.node.value = this.value;
-      } else {
-        let str = this.node.originTextContent;
-        let reg = /\{\{\s?(\w+)\s?\}\}/g;
-        if (!reg.test(str)) return; //如果没有{{}}这种语法直接不作处理
-        //把{{}}语法转换为对应的data中的属性值
-        str = str.replace(reg, function(...[, $1]) {
-          return vm.$data[$1]; //获取到属性的对应的值返回
-        });
-        this.node.textContent = str;
-      }
-    }
-    getValue() {
-      this.value = this.vm.$data[this.key]; //会触发key属性的get函数
     }
   }
   return Vue;
