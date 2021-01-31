@@ -55,9 +55,9 @@ Object.prototype.myDeepClone = function myDeepClone(cache = new Set()) {
       obj = new Ctor(_this);
     }
 
-    //ArrayBuffer的处理
+    //ArrayBuffer的的深克隆(lodash源码)
     if (/^(ArrayBuffer)$/.test(Ctor.name)) {
-      obj = new Ctor(_this.byteLength);
+      return _this.slice();
     }
 
     // console.log(getOwnProps(_this))

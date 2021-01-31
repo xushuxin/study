@@ -13,3 +13,16 @@ let、const、解构赋值、扩展运算符、Promise、async/await、Set和Map
 Object.is（与三个等号的区别是①+0和-0不相等②NaN等于NaN）
 
 Object.assign 将一个或多个对象的所有可枚举属性(包含Symbol属性)复制到
+
+Object.keys/Object.values/Object.entries
+
+Object.fromEntries 将一个键值对数组转为对象。
+
+```js
+Object.fromEntries([
+  ['foo', 'bar'],
+  ['baz', 42]
+])
+// { foo: "bar", baz: 42 }
+```
+

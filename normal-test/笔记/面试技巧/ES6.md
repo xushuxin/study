@@ -73,7 +73,7 @@ for (let item of obj){
 
 ##### 如何构造一个类数组
 
-创建一个classl类，设置公有属性Symbol.iterator属性，属性值是generator函数，函数中为每一项元素添加yield表达式
+创建一个class类，设置公有属性Symbol.iterator属性，属性值是generator函数，函数中为每一项元素添加yield表达式
 
 ```js
 //构造一个类数组
@@ -153,7 +153,7 @@ console.log(({}).toString.call(p1));//"[object Person]"
 
 #### Generator生成器/Iterator迭代器及实战中的运用
 
-Iterator是ES6引入的一种新的遍历机制
+##### Iterator是ES6引入的一种新的遍历机制
 
 + 通过Symbol.iterator创建一个迭代器，指向当前数据结构的起始位置
 
@@ -163,7 +163,7 @@ Iterator是ES6引入的一种新的遍历机制
 
 迭代器是新的数据结构，具有next方法
 
-创建迭代器的方式
+##### 创建迭代器的方式
 
 ```js
 let arr = [1,2,3],
@@ -175,7 +175,7 @@ let str ="123",
 		it = str[Symbol.iterator](str);//创建一个字符串的迭代器
 ```
 
-自己实现一个生成迭代器的方法
+##### 自己实现一个生成迭代器的方法
 
 ```js
 function createiterator(items){
@@ -205,7 +205,7 @@ console.log(it.next());
 console.log(it.next());
 ```
 
-利用generator实现async/await原理
+##### 利用generator实现async/await原理
 
 面试回答：
 

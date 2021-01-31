@@ -15,7 +15,7 @@ function throttle(func, wait = 300) {
       remaining = wait - (now - previous); //记录还差多久达到我们一次触发的频率
     if (remaining <= 0) {
       // 两次操作的间隔时间已经超过wait了
-      window.clearTimeout(timer);
+      clearTimeout(timer);
       timer = null;
       previous = now;
       func.call(this, ...params);
@@ -28,6 +28,28 @@ function throttle(func, wait = 300) {
       }, remaining);
     }
   };
+}
+
+//节流（自己的）
+//每次执行时计算当前时间与上一次执行函数的时间的差值，如果差值小于我们指定的时间间隔，则设置定时器在差值时间后执行函数
+function throttle(fn,time){
+  let timer = null,prev = 0;
+  return function (...params){
+      let now = new Date;
+      let remain = time - (now - prev);
+      if(timer) return;//如果定时器还在，不要执行了，等定时器函数执行完成之后再执行
+      if(remain>0){
+        timer = setTimeout(()=>{
+          fn.apply(this,params);
+          timer = null;
+          prev = new Date;
+        },remain)
+      }else {
+        fn.apply(this,params);
+        timer = null;
+        prev = new Date;
+      }
+  }
 }
 // =================test===================
 

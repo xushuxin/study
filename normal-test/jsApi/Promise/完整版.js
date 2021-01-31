@@ -163,14 +163,18 @@
     },
     finally: function(onFinally) {
       let self = this;
+      //返回的还是一个新的promise实例,
+      //这个promise实例的状态由当前promise的状态来决定
+      //用户传递的函数执行报错也会把返回的promsie修改为失败态
       return new Promise(function(resolve, reject) {
         var tryDoFinally = function() {
           try {
-            onFinally() ////执行传递的finally函数，finally函数没有传参
+            onFinally() //执行传递的finally函数，finally函数没有传参
           } catch (err) {
             reject(err) //执行报错把返回的promise变为rejected状态，传递原因
           }
         };
+        //成功或者失败都会执行一下用户传递的函数
         self.then(function(value) {
           tryDoFinally();
           resolve(value); //修改返回的promise变为fulfilled状态，传递结果

@@ -1,50 +1,83 @@
-//实现new
-var Dog = function() {
-  this.name = arguments[0];
-  this.age = arguments[1];
-}
-Dog.prototype.bark = function() {
-  console.log('汪汪')
-}
-
-Dog.prototype.sayName = function() {
-  console.log(this.name);
-}
-Dog.prototype.sayAge = function() {
-  console.log(this.age);
-};
-
-// let _new = function _new(Ctor, ...params) {
-//   let obj = {};
-//   obj.__proto__ = Ctor.prototype;
-//   let result = Ctor.call(obj, ...params);
-//   if (/^(object|function)$/.test(typeof result)) {
-//     return result;
-//   } else {
-//     return obj;
+// var arr = [6,3,1,7,5,8,9,2,4],arr2=[];
+// let i =0;
+// for(;i<arr.length;i++){
+//   arr2.push(arr.shift());
+//   if (arr.length) {
+//     arr.push(arr.shift());
 //   }
-// };
+//   i--;
+// }
+// console.log(arr2)
 
-//实现Object.create
-Object.create = function(pro) {
-  function Proxy() {};
-  Proxy.prototype = pro;
-  return new Proxy;
+
+let code = `<template>
+<div class="">
+
+</div>
+</template>
+
+<script type="text/javascript">
+export default {
+data() {
+  return {
+
+  }
+},
+components: {
+
+},
+created(){
+
+},
+mounted(){
+
+},
+updated(){
+
+},
+methods:{
+
+}
+}
+</script>
+
+<style lang="stylus" scoped>
+  body{
+    height:100%;
+  }
+</style>`;
+//获取.vue文件中，template、script、style标签的内容
+function getSource(type,code){
+  //可以使用[^]表示匹配任意字符，包括换行回车换页等
+  const reg = new RegExp(`<${type}[^>]*>([^]*)</${type}>`);
+  let content = code.match(reg)[1];
+  return content;
+  
+}
+//处理script标签的内容，转为组件对象
+let script = getSource('script',code);
+script = script.replace('export default','return');
+let componentOptions={};
+if(script){
+  //把返回值放到一个Function函数中，执行后返回包含组件选项的对象
+  component = new Function(script)();
+  console.log(component)
+}
+//处理template，创建一个Vue的子类实例，并将根元素添加到页面
+if(template){
+  //子组件中可以通过，this.$options._base获取Vue构造函数
+  //通过Vue.extend创建一个Vue的子类
+  //最后new 子类创建一个子组件实例
+  let instance = new (this.$options._base.extend(component))
+  //子组件实例$mount方法
+  this.$refs.showBox.appendChild(instance.$mount().$el);
+}
+//处理style标签的内容，创建style标签添加到页面
+if(style){
+  let element = document.createElement('style');
+  element.setAttribute('type','text/css');
+  element.innerText = style;
+  document.head.appendChild(element);
 }
 
-let _new = function _new(Ctor) {
-  var obj = Object.create(Ctor.prototype);
-  var params = [].slice.call(arguments, 1);
-  var result = Ctor.apply(obj, params);
-  if (/^(object|function)$/.test(typeof result)) {
-    return result
-  }
-  return obj;
-};
 
-// var dog1 = new Dog('三毛', 6);
-var dog1 = _new(Dog, '三毛', 6);
-console.log(dog1);
-dog1.bark();
-dog1.sayName();
-dog1.sayAge();

@@ -12,39 +12,58 @@
       width: 200px;
       height: 150px;
       font-weight: bold;
-      background:skyblue;
+      background: skyblue;
+      position: relative;
     }
     
     .inner {
-      width:50px;
+      width: 50px;
       height: 50px;
-      background:#faa;
+      background: #faa;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
     }
     
+    html {
+      height: 100%;
+    }
+    
+    body {
+      height: 600%;
+      background: linear-gradient(to right, #f00, #faa);
+    }
   </style>
 </head>
 
 <body>
   <div class="outer">
     <div class="inner">
+      <button id="button">click</button>
     </div>
   </div>
   <!-- <script src="./test.js"></script> -->
+  <!-- <script src="./node_modules/lodash.throttle/index.js"></script> -->
   <script>
-    var outer = document.querySelector('.outer');
-    var inner = document.querySelector('.inner');
-    outer.addEventListener('mouseover',function(e){
-      console.log('outer mouseover')
-    })
-    outer.addEventListener('mouseout',function(e){
-      console.log('outer mouseout')
-    })
-    inner.addEventListener('mouseover',function(e){
-      console.log('inner mouseover')
-    })
-    inner.addEventListener('mouseout',function(e){
-      console.log('inner mouseout')
-    })
+    // button.onclick = debounce(function(){
+    //   console.log('click');
+    // },1000)
+    // window.onscroll = throttle(function() {
+    //   console.log('scroll');
+    // }, 1000)
+
+    //算法
+    //每次只能走1步或者每次只能走2步，10个台阶有多少种方式走完
+    function getWayCount(step){
+      if(step === 1 || step === 2) return step;
+      return getWayCount(step - 1) + getWayCount(step - 2);
+      
+    }
+    var count = getWayCount(10);
+    console.log(count);
   </script>
 </body>
 

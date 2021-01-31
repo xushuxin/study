@@ -56,13 +56,3 @@ p.#{$name} {
 p.foo { border-color: blue; }
 ```
 
-#### Icon组件
-
-[使用阿里矢量图小图标](https://www.iconfont.cn/help/detail?spm=a313x.7781069.1998910419.17&helptype=code)
-
-使用iconfont.js（官网称为symbol引用）与使用iconfont.css的区别：
-
-- 使用js需要通过width、height修改图标大小
-
-- 使用css通过font-size修改图标大小
-

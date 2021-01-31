@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "lodash.throttle": "^4.1.1",
     "math.js": "^1.1.46"
   }
 }
