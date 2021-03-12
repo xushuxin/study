@@ -1,0 +1,97 @@
+/* 
+定义全局的css公共样式，高效复用样式 
+①样式按照小粒度拆分 
+②合理的命名规范可以避免公共样式重复定义，开发时方便快速引用
+③按照字母序升序定义样式类
+
+哪些样式规则可以设置为全局公共样式呢？
++ 首先是具有枚举值的属性，包括 
+display、clear:both、position、cursor:pointer、float:left 等。
++ 其次是那些特定数值的样式属性值，比如 margin: 0、left: 0、height: 100%。
++ 最后是设计规范所使用的属性，比如设计稿中规定的几种颜色。
+
+命名规范：属性名首字母 + 横线 + 属性值首字母
+比如：对于 display:inline-block 的样式属性值，它的属性为“display”缩写为“d”，值为“inline-block”，缩写为“ib”，通过短横线连接起来就可以命名成“d-ib”；同样，如果工程师想设置一个 float:left 的样式，也很容易想到使用“f-l”的样式名
+*/
+
+
+/* 设计稿中的color */
+.c-102451{
+  color:#102451;
+}
+
+/* clear */
+.c-b{
+  clear: both;/*  */
+}
+
+/* cursor */
+.c-p{
+  cursor: pointer;
+}
+
+
+/* display */
+.d-b{
+  display:block;
+}
+.d-f{
+  display:flex;
+}
+.d-ib{
+  display:inline-block;
+}
+.d-n{
+  display:none;
+}
+
+
+/* float */
+.f-l{
+  float:left;
+}
+.f-r{
+  float:right;
+}
+
+/* height */
+.h-0{
+  height:0;
+}
+.h-50{
+  height:50%;
+}
+.h-100{
+  height:100%;
+}
+
+/* left */
+.l-0{
+  left:0;
+}
+.l-50{
+  left:50%;
+}
+
+/* position */
+.p-a{
+  position: absolute;;
+}
+.p-f{
+  position: fixed;
+}
+.p-r{
+  position:relative;
+}
+.p-s{
+  position: sticky;
+}
+
+/* right */
+.r-0{
+  right:0;
+}
+.r-50{
+  right:50%;
+}
+

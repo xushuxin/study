@@ -62,7 +62,7 @@
 <style lang="scss" scoped>
 @import "../styles/common.scss";
 $height:42px;
-$font-size:16px;
+$font-size:14px;
 $color:#606866;
 $border-color:#dcdfe6;
 $background:#ecf5ff;
@@ -133,8 +133,8 @@ $active-color:#3a8ee6;
     }
   }
   .icon {
-    width:16px;
-    height:16px;
+    width:14px;
+    height:14px;
   }
   &-left{
     svg{

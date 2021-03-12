@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id = 'get'>get</button>
+  <button id = 'get2'>get2 路径传参</button>
+  <button id = 'post'>post</button>
+  <button id = 'post2'>post Form Data</button>
+
+  <!-- 表单提交 ，默认行为：刷新页面-->
+  <!-- 
+  解决使用表单提交，并且不刷新页面的方法是：
+  1、添加一个iframe,设置一个name，style设置为display:none
+  2、给form添加一个taget属性，指向一个iframe的name
+  -->
+  <form action="http://localhost:3000/add" method="post" target="iframeForm">
+    <input type="text" name="a">
+    <input type="text" name="b">
+    <button type="submit">提交表单</button>
+  </form>
+  <iframe name="iframeForm" style="display:none;"></iframe>
+  <script>
+    get.addEventListener('click',function(e){
+      fetch('http://localhost:3000/list?a=123&b=345').then(res =>{ 
+        return res.text()
+      }).then(data=>{
+          console.log('get response:',data)
+      })
+    })
+    get2.onclick = function(){
+      fetch('http://localhost:3000/list2/add').then(res=>res.text()).then(data=>{
+        console.log(data);
+      })
+    }
+
+   
+    post.onclick = function(e){
+      fetch('http://localhost:3000/add',{
+        method:'POST',
+        //默认上送的JSON字符串格式
+        body:JSON.stringify({//fetch请求的参数需要放在body中
+          a:1,
+          b:3
+        }),
+        // body:'a=1&b=3',//第二步
+        // headers:{//第一步
+        //   'Content-Type':'application/x-www-form-urlencoded'
+        // }
+      })
+    }
+    
+    // 前端要发送FormData格式的数据，需要做两步：
+    //1.设置请求头：Content-Type:"application/x-www-form-urlencoded"
+    //2.上送参数格式改为查询字符串方式//2.上送参数格式改为查询字符串方式
+    post2.onclick = function(e){
+      fetch('http://localhost:3000/add',{
+        method:'POST',
+        body:'a=1&b=3',//第二步
+        headers:{//第一步
+          'Content-Type':'application/x-www-form-urlencoded'
+        }
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
-import Button from './Button'
-import ButtonGroup from './ButtonGroup'
-import Icon from './Icon'
+// import Button from './Button'
+// import ButtonGroup from './ButtonGroup'
+// import Icon from './Icon'
 const install = (Vue)=>{
   // 把所有组件设置成全局组件
   // Vue.component(Button.name,Button)

@@ -1,6 +1,6 @@
 <template>
-  <div class="message">
-    <div v-for="(item,index) in messages" :key="index">
+  <div class="my-message">
+    <div class="my-message" v-for="(item,index) in messages" :key="index">
       {{item.message}}
     </div>
   </div>
@@ -41,5 +41,16 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
+.my-message{
+  .message-item{
+    max-width:500px;
+    background: #909399;
+    margin: 0 auto;
+    text-align:center;
+    padding:10px;
+    border-radius: 5px;
+  }
+}
+
 </style>

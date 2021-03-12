@@ -19,7 +19,8 @@ var arr = [1, 2, 'str'];
 var arr1 = [1, 2];
 var arr2 = [1, 2, 3];
 var arr3 = [1, 2, true];
-//元组
+//元组 类似一个数组 它是一个长度和类型都固定的数组
+//1长度固定 2类型可以不一样
 var arr4 = [1, 'str', true];
 //枚举
 var Person;
@@ -29,11 +30,26 @@ var Person;
     Person[Person["girl"] = 199] = "girl";
 })(Person || (Person = {}));
 console.log(Person); //{1: "women",199: "girl",200: "man",girl: 199,man: 200,women: 1}
+var Week;
+(function (Week) {
+    Week[Week["Monday"] = 1] = "Monday";
+    Week[Week["Tuesday"] = 2] = "Tuesday";
+})(Week || (Week = {}));
+console.log(Week);
+console.log(0 /* Red */, 1 /* Yellow */, 2 /* Blue */);
 //设置any，表示任意数据类型，和写js就一样了
-var b = 1;
-b = "str";
+//第三方库没有类型定义、类型转换、数据结构太复杂太灵活的时候使用
+//不写any时，ts会根据数据进行类型判断
+var b = 123;
+b = 'str';
+//ts为dom提供了一整套的类型声明
+var root = document.getElementById('root');
+root.style.color = 'red'; //!断言不为空
 //null undefined
-//默认可以赋值给所有的类型，但是如果开启了强类型校验，则不能赋值给其他类型
+//空    未定义
+//它们都是其他类型的子类型，可以把它们赋给其他类型的变量
+//默认可以赋值给所有的类型，但是如果开启了strict:true,默认strictNullChecks:true,不能赋值给其他类型,
+//需要设置strictNullChecks:false，才可以随意赋值给其他类型
 var arr5 = [];
 var a2 = 123;
 a2 = undefined;

@@ -9,7 +9,7 @@ let getInstance = ()=>{
     render:h=>h(Message)//当前Vue实例仅渲染一个Message组件
   }).$mount();//组件对象，生成到内存中
   console.log('vm----',vm)
-  document.body.appendChild(vm.$el);
+  document.body.appendChild(vm.$el);//初始化组件时，将包含组件的元素添加到页面上
   //获取到Message组件，然后再拿到方法
   let message = vm.$children[0];//当前实例只有一个Message组件
   //在这里向外暴露一些的方法（单例模式）

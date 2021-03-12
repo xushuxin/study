@@ -81,7 +81,7 @@ class Promise {
      * 如果用户传递的成功回调或者失败回调不是一个函数，那么
      * 成功回调：
      * 我们会传一个默认的回调，接收上一个promise传递的值，
-     * 通过return的方式传递给下一个promise（88、89行 return的值会被传给下一个promise的成功回调）
+     * 通过return的方式传递给下一个promise（90、91行 return的值会被传给下一个promise的成功回调）
      * 失败回调：
      * 我们会传一个默认的回调，接收上一个promise rejected的原因，
      * 通过throw err的方式抛出，可被下一个promise捕捉（87-92行 try+catch+reject）
@@ -139,6 +139,22 @@ class Promise {
   }
   catch (errCallBack) { //一个没有成功回调的then
     return this.then(null, errCallBack)
+  }
+  static resolve(value){
+    return new Promise(resolve=>{
+      resolve(value)
+    })
+  }
+  static reject(reason){
+    return new Promise((_,reject)=>{
+      reject(reason)
+    })
+  }
+  finally(callback){
+    //不管promise是成功还是失败态，调用其then方法执行用户回调即可
+    this.then(()=>{
+      callback()
+    })
   }
 }
 

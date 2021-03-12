@@ -1,10 +1,10 @@
 /**
  * 在index.js基础上自己写
- * num1,num2必须是字符串
+ * num1,num2必须是字符串/数字
  */
 function multiply(num1,num2){
-  let arr1=num1.split('').reverse();
-  let arr2=num2.split('').reverse();
+  let arr1=num1.toString().split('').reverse();
+  let arr2=num2.toString().split('').reverse();
   let resArr=[];
   for (var index1=0;index1<arr1.length;index1++){
     for (var index2=0;index2<arr2.length;index2++){

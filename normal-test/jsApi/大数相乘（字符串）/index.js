@@ -17,20 +17,33 @@ var multiply = function(num1, num2) {
             const resArr = (num1Arr[i] * num2Arr[j]).toString().split('');
             resArr.reverse();
             // console.log(resArr)
-            const index = num2Arr.length - 1 - j + num1Arr.length - 1 - i;//0+0 1+0 2+0 ; 1+0 1+1 2+1; 0+2 1+2 2+2
+            //0+0 1+0 2+0 ; 0+1 1+1 2+1; 0+2 1+2 2+2 
+            //index的值： 0 1 2 ; 1 2 3 ; 2 3 4
+            const index = num2Arr.length - 1 - j + num1Arr.length - 1 - i;
             let next = 0, k = 0;
-            while (k < resArr.length || next !== 0) {
+        
+            while (k < resArr.length || next !== 0) {//遍历两位数字相乘结果的倒序数组
                 // 结果当前位数加上前一位的进位
-                let sum = (res[index + k] | 0) + next;
+                //undefined|0 结果是0 ，undefined非数字，位运算时Number转为数字处理，为NaN
+                //因为位运算底层是32位转为64位，转换过程导致NaN和Infinity作为0来处理了
+                //|：或运算符，两位之中只要有一位为1,则结果为1，都为0则结果为0
+                let sum = (res[index + k] | 0) + next;//首次sum结果为0
                 // 若 k < resArr，即非最后一位进位
-                if (k < resArr.length) {
-                    sum += +resArr[k];
+                if (k < resArr.length) {//比如个位为2和9，相乘的倒序数组是['9','2']
+                    sum += +resArr[k];//sum = 0+9 ; sum = 0 + 2
                 }
-                res[index + k] = sum % 10;
+                res[index + k] = sum % 10;//对结果取余，获取当前位的值
                 // 若 sum 大于10，进位 = 1
-                next = sum / 10 >= 1 ? 1: 0;
+                next = sum / 10 >= 1 ? 1: 0;//判断结果是否有进位
                 k++;
             }
+            //首次 i=0,j=0循环结束res =['9','2']
+            //i=0,j=1循环，res数组index=1,该位置已存在'2'，
+            //需要那这个位置的值与当前两个数的计算结果相加，比如个位2和十位9相乘结果是18
+            //遍历相乘结果的倒序数组：['8','1'], 8 + 2 =>10,覆盖设置res数组index = 1的值为 0 ，进位next为1
+            //继续进入while循环，index=2没有值，但是因为有进位，需要加上进位1，再与倒序数组的index为1的值，
+            //也就是1，相加，结果为2，设置为res数组index=2 的值，没有进位，while循环结束，继续下次for循环
+            //计算i=0，j=2的相乘结果，并从res数组index=2开始来计算每一位的最终值以及进位情况
         }
     }
     // 去除结果前的 0

@@ -60,7 +60,7 @@ const {promisify} = require('util');//用于把node的回调式调用转为promi
 const figlet = promisify(require('figlet'));//用于生成大字
 
 const clear =require('clear');//清屏
-const chalk =require('chalk');//粉笔，用于生成指定颜色的子
+const chalk =require('chalk');//粉笔，用于生成指定颜色的字
 
 //打印函数
 const log = content => console.log(chalk.green(content))
@@ -68,7 +68,7 @@ const log = content => console.log(chalk.green(content))
 //导出函数
 module.exports = async name =>{
   //打印欢迎界面
-  clear()
+  clear()//先清除原先的打印记录
   const data = await figlet('KKB WELCOME');
   log(data)
 }

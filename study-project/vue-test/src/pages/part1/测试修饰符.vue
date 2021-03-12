@@ -8,15 +8,24 @@
       <el-button @click.self="submit">提交</el-button>
     </div>
     <div class="white-box"></div>
+    {{name}}
   </div>
 </template>
 
 <script type="text/javascript">
 export default {
   data() {
-    return {};
+    return {
+      test:'666'
+    };
   },
   components: {},
+  computed:{
+    name(){
+      console.log('-----------------',arguments);
+      return this.test;
+    }
+  },
   created() {},
   mounted() {},
   updated() {},

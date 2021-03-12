@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BFC实现两列布局</title>
+  <style>
+    main,
+    aside {
+      height: 100px;
+    }
+    
+    main {
+      background-color: #f09e5a;
+      overflow: hidden;
+    }
+    
+    aside {
+      background-color: #c295cf;
+      width:200px;
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- 这里不太好的是把次要布局的标签放在了上面，没有找到更好的方案 -->
+    <aside>次要布局容器</aside>
+    <main>主要布局容器</main>
+  </div>
+ 
+</body>
+
+</html>

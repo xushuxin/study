@@ -22,7 +22,8 @@
 
 <script>
 import Vue from 'vue';
-import Message from './plugins/Message/Message.js'
+// import Message from './plugins/Message/Message.js'
+import Message from './plugins/Message/Message2.js'
 Vue.use(Message);
 export default {
   name: 'App',

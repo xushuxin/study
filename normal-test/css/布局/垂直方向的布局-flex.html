@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直方向的布局</title>
+  <meta name="description" content="这种布局将页面分成上、中、下三个部分，上、下部分都为固定高度，中间部分高度不定。当页面高度小于浏览器高度时，下部分应固定在屏幕底部；当页面高度超出浏览器高度时，下部分应该随中间部分被撑开，显示在页面最底部。">
+  <meta name="description" content="这种布局也称之为”sticky footer“，意思是下部分粘黏在屏幕底部。要实现这个功能，最简单的就是使用 flex 或 grid 进行布局">
+
+  <style>
+    html,body{
+      height: 100%;
+    }
+    .container {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+    }
+    
+    header,
+    footer {
+      min-height: 100px;
+      background-color: #d8f39b;
+    }
+    
+    main {
+      flex: 1;
+      background-color: #f7e4a6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header></header>
+    <main>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+    </main>
+    <footer></footer>
+  </div>
+</body>
+
+</html>

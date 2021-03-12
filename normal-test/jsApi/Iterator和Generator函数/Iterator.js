@@ -20,9 +20,7 @@ class Iterator {
     this.index = 0;
   }
   next() {
-    let index = this.index,
-      arr = this.arr;
-    if (index > arr.length - 1) {
+    if (this.index > this.arr.length - 1) {
       return {
         done: true,
         value: undefined
@@ -30,7 +28,7 @@ class Iterator {
     }
     return {
       done: false,
-      value: arr[this.index++]
+      value: this.arr[this.index++]
     }
   }
 }

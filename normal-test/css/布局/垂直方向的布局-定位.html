@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>垂直方向的布局</title>
+  <meta name="description" content="考虑使用定位的方式来布局,兼容ie10及以上">
+  <meta name="description" content="布局思路，设置容器container的最小高度100vh或者100%，设置padding-bottom等于footer的高度，为footer显示预留空间，footer相对于container定位到底部">
+  <style>
+    *{
+      margin:0;
+    }
+    html,
+    body {
+      height: 100%;
+    }
+    
+    .container {
+      position: relative;
+      box-sizing: border-box;
+      min-height: 100vh;
+      padding-bottom: 100px;
+      background-color: #f7e4a6;
+    }
+    
+    header,
+    footer {
+      box-sizing: border-box;/*防止内部padding导致整体高度变高*/
+      height: 100px;
+      background-color: #d8f39b;
+    }
+    
+    footer {
+      width: 100%;
+      position:absolute;
+      bottom:0;
+      left:0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header></header>
+    <main>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+      <div class="main-content">main content</div>
+    </main>
+    <footer></footer>
+  </div>
+</body>
+
+</html>

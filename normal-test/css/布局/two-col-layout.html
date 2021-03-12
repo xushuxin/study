@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>两列布局</title>
+  <style>
+    main,
+    aside {
+      height: 100px;
+    }
+    
+    main {
+      background-color: #f09e5a;
+      /* 单值为无单位值时，相当于flex:<number> 1 0% */
+      flex:1;
+    }
+    
+    aside {
+      background-color: #c295cf;
+      width:200px;
+    }
+    .wrap{
+      display:flex;
+      flex-direction:row-reverse;
+      flex-wrap:wrap;
+    }
+    /* 屏幕宽度小于等于1000px时，单行显示主要容器，次要容器换行显示 */
+    @media only screen and (max-width:1000px){
+      .wrap{
+        flex-direction:row;
+      }
+      main{
+        /* 当单值为一个有效的长度时，是flex-basis的简写，优先级高于width */
+        flex:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <main>主要布局容器</main>
+    <aside>次要布局容器</aside>
+  </div>
+</body>
+
+</html>

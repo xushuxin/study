@@ -7,7 +7,8 @@ var arr1:Array<number>=[1,2]
 var arr2:number[] = [1,2,3]
 var arr3:(number|boolean)[] = [1,2,true];
 
-//元组
+//元组 类似一个数组 它是一个长度和类型都固定的数组
+//1长度固定 2类型可以不一样
 var arr4 :[number,string,boolean] = [1,'str',true];
 
 //枚举
@@ -17,15 +18,37 @@ enum Person{
   girl = 199
 }
 console.log(Person)//{1: "women",199: "girl",200: "man",girl: 199,man: 200,women: 1}
+enum Week{
+  Monday = 1,
+  Tuesday = 2
+}
+console.log(Week);
+
+//常数枚举
+const enum Colors{
+  Red,
+  Yellow,
+  Blue
+}
+console.log(Colors.Red,Colors.Yellow,Colors.Blue)
 
 //设置any，表示任意数据类型，和写js就一样了
-var b:any=1;
-b="str";
+//第三方库没有类型定义、类型转换、数据结构太复杂太灵活的时候使用
+//不写any时，ts会根据数据进行类型判断
+let b:any = 123;
+b = 'str';
+
+//ts为dom提供了一整套的类型声明
+let root:HTMLElement|null=document.getElementById('root');
+root!.style.color = 'red';//!断言不为空
 
 //null undefined
-//默认可以赋值给所有的类型，但是如果开启了强类型校验，则不能赋值给其他类型
+//空    未定义
+//它们都是其他类型的子类型，可以把它们赋给其他类型的变量
+//默认可以赋值给所有的类型，但是如果开启了strict:true,默认strictNullChecks:true,不能赋值给其他类型,
+//需要设置strictNullChecks:false，才可以随意赋值给其他类型
 let arr5:number[]= [];
-let a2:number|undefined|null = 123;
+let a2 = 123;
 a2 = undefined;
 a2 = null;
 
@@ -136,7 +159,7 @@ class School3 extends School{
 let s3 = new School3();
 
 //接口 不是前后端交互的接口 是ts的一个语法
-//表会行为的规范 或者 对象的描述
+//表示行为的规范 或者 对象的描述
 //接口中的分割可以是逗号或者分号 或者啥也不写
 interface ISpeak{
   name: string,//;或者不写
