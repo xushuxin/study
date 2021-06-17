@@ -1,37 +1,36 @@
 /**孙子组件,获取祖父组件的传递的参数和值**/
 <template>
-  <div class="">
+<div class="">
     这是孙子组件,接收到父组件的传值
     {{$attrs}}
     <div>
-      <input type="text" placeholder="请输入修改的名字" v-model="inputValue">
-      <button @click="$emit('changeShowName',inputValue)">changeShowName</button>
+        <input type="text" placeholder="请输入修改的名字" v-model="inputValue">
+        <button @click="$emit('changeShowName',inputValue)">changeShowName</button>
     </div>
-  </div>
+</div>
 </template>
-
-<script type="text/javascript">
+<script>
 export default {
-  data() {
-    return {
-      inputValue:''
+    data() {
+        return {
+            inputValue: ''
+        }
+    },
+    components: {
+
+    },
+    created() {
+
+    },
+    mounted() {
+
+    },
+    updated() {
+
+    },
+    methods: {
+
     }
-  },
-  components: {
-
-  },
-  created(){
-
-  },
-  mounted(){
-
-  },
-  updated(){
-
-  },
-  methods:{
-
-  }
 }
 </script>
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>原生js省市县三级联动</title>
+</head>
+<body>
+<div>
+    <label for="province"></label>
+    <select name="" id="province">
+        <option value="0">--请选择--</option>
+    </select>
+    <label for="city"></label>
+    <select name="" id="city">
+        <option value="0">--请选择--</option>
+    </select>
+    <label for="county"></label>
+    <select name="" id="county">
+        <option value="0">--请选择--</option>
+    </select>
+</div>
+</body>
+<script>
+	const province = document.getElementById ('province');
+	const city = document.getElementById ('city');
+	const county = document.getElementById ('county');
+	const ajax = new XMLHttpRequest ();
+	ajax.onreadystatechange = function () {
+		if (ajax.readyState === 4) {
+			const data = JSON.parse (ajax.responseText);
+			for (let i in data) {
+				const option = document.createElement ('option');
+				option.value = data[i].id;
+				option.innerText = data[i].cn_name;
+				province.appendChild (option);
+			}
+		}
+	};
+	ajax.open ('get', './city/0.json', true);
+	ajax.send ();
+	province.onchange = function () {
+		const filename = this.value;
+		city.innerHTML = '<option value="">--请选择--</option>';
+		county.innerHTML = '<option value="">--请选择--</option>';
+		if (filename === "0") return false;
+		ajax.onreadystatechange = function () {
+			if (ajax.readyState === 4) {
+				const data = JSON.parse (ajax.responseText);
+				for (let i in data) {
+					const option = document.createElement ('option');
+					option.value = data[i].id;
+					option.innerText = data[i].cn_name;
+					city.appendChild (option);
+				}
+			}
+		};
+		ajax.open ('get', './city/' + filename + '.json', true);
+		ajax.send ();
+	};
+	city.onchange = function () {
+		county.innerHTML = '<option value="">--请选择--</option>';
+		const filename = this.value;
+		if (filename === "") return false;
+		ajax.onreadystatechange = function () {
+			if (ajax.readyState === 4) {
+				county.innerHTML = '';
+				const data = JSON.parse (ajax.responseText);
+				for (let i in data) {
+					const option = document.createElement ('option');
+					option.value = data[i].id;
+					option.innerText = data[i].cn_name;
+					county.appendChild (option);
+				}
+			}
+		};
+		ajax.open ('get', './city/' + filename + '.json', true);
+		ajax.send ();
+	}
+</script>
+</html>

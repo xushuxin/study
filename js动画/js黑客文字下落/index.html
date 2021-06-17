@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>hack 文字下落 - </title>
+    <style>
+        #can {
+            border: 1px solid red;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <canvas id="can">
+    </canvas>
+</body>
+<script>
+    window.onload = function() {
+        const canvas = document.querySelector('#can');
+        const cxt = canvas.getContext('2d');
+
+        const cwidth = canvas.width = 1000;
+        const cheight = canvas.height = 800;
+
+        const clearColor = 'rgba(0,0,0,0.1)';
+        const words = '0123456789qwertyuiopasdfghjklzxcvbnm~!@#$%^&*,.\[]QWERTYUIOP{}ASDFGHJHJKL:ZXCVBBNM<>?'.split('');
+        const fontSize = 16;
+        const column = cwidth / fontSize;
+        const drops = []
+
+        for (var i = 0; i < column; i++) {
+            drops[i] = 1;
+        }
+
+        const randomColor = function () {
+            const num = function () {
+                return Math.floor(Math.random() * 255 + 1);
+            }
+            return `rgb(${num()},${num()},${num()})`;
+        }
+
+        const draw = function () {
+            cxt.save();
+            cxt.fillStyle = randomColor();
+            cxt.font = fontSize + "px arial";
+            //核心
+            for (var i = 0; i < drops.length; i++) {
+                var text = words[Math.floor(Math.random() * words.length)];
+                cxt.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > cheight && Math.random() > 0.98) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            cxt.restore();
+        }
+
+        const run = function() {
+            cxt.fillStyle = clearColor;
+            cxt.fillRect(0, 0, cwidth, cheight);
+            draw();
+            requestAnimationFrame(run);
+        }
+
+        run();
+
+    }
+</script>
+</html>

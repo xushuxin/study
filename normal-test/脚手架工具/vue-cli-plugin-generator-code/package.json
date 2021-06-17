@@ -1,0 +1,16 @@
+{
+  "name": "vue-cli-plugin-generator-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^4.1.1",
+    "glob": "^7.1.7",
+    "inquirer": "^8.1.1"
+  }
+}

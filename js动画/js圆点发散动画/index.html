@@ -1,0 +1,137 @@
+<html><head>
+    <meta charset="utf-8">
+    <title>HTML5 Canvas圆点发散动画特效</title>
+
+    <style>
+        body{
+            margin: 0;
+        }
+        canvas{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111a22;
+        }
+    </style>
+
+</head>
+<body>
+
+<canvas width="1303" height="843"></canvas>
+
+<script>
+    // 使用requestAnimationFrame来做动画
+    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame
+
+    onload = function (){//页面完成加载之后执行init函数
+        setTimeout(init,0)
+    }
+
+    init = function(){
+        //获取canvas画布
+        canvas = document.querySelector('canvas')
+        ctx = canvas.getContext('2d')//创建2d画笔
+
+        onresize = function(){//窗口尺寸发生改变时，同步canvas对象的宽高
+            canvas.width = canvas.clientWidth
+            canvas.height = canvas.clientHeight
+        }
+        onresize()
+
+        mouse = {x:canvas.width/2,y:canvas.height/2,out:false}
+
+        canvas.onmouseout = function(){
+            mouse.out = true
+        }
+
+         //鼠标移动时,修改鼠标对象在canvas上的位置信息
+        canvas.onmousemove = function(e){
+            var rect = canvas.getBoundingClientRect()
+            mouse = {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
+                out: false
+            }
+        }
+
+        gravityStrength = 10
+        particles = [] 
+        spawnTimer = 0
+        spawnInterval = 10
+        type = 0
+        requestAnimationFrame(startLoop)//开始动画
+    }
+
+    newParticle = function(){
+        type = type?0:1 //切换创建的球的类型
+        // 添加一个需要绘制的球
+        particles.push({
+            x:mouse.x,
+            y:mouse.y,
+            xv:type?18*Math.random()-9:24*Math.random()-12,
+            yv:type?18*Math.random()-9:24*Math.random()-12,
+            c:type?'rgb(255,'+((200*Math.random())|0)+','+((80*Math.random())|0)+')':'rgb(255,255,255)',// |0为取整
+            s:type?5+10*Math.random():1,//半径type为0时，半径为1，画出小白点
+            a:1 //透明度
+        })
+    }
+
+    startLoop = function(newTime){
+        time = newTime//记录当前回调函数被requestAnimationFrame开始执行的时间
+        requestAnimationFrame(loop)
+    }
+
+    loop = function(newTime){
+        draw()// 根据particles数据绘制所有的球
+        calculate(newTime)//创建球并修改所有球的状态
+        requestAnimationFrame(loop)//下一帧动画
+    }
+
+    draw = function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height)//清空画布
+        for(var i=0;i<particles.length;i++){//particles有多少个球，就画多少个
+            var p = particles[i]//获取一个球
+            ctx.globalAlpha = p.a//设置透明度
+            ctx.fillStyle = p.c//设置填充颜色
+            ctx.beginPath()
+            ctx.arc(p.x,p.y,p.s,0,2*Math.PI)//横坐标x,纵坐标y，s为半径，画圆
+            ctx.fill()//填充
+        }
+    }
+
+    calculate = function(newTime){
+        var dt = newTime-time//计算本次调用时间和上次调用的时间差
+        time = newTime//更新调用的时间
+
+        if(!mouse.out){
+            spawnTimer += (dt<100)?dt:100//两次调用时间之差如果在100ms以内，直接加上值，否则加上100
+            for(;spawnTimer>0;spawnTimer-=spawnInterval){//每次减去10，并创建一个球（所以最多创建十个球），添加到数组中
+                newParticle()
+            }
+        }
+
+
+        particleOverflow = particles.length-700
+        if(particleOverflow>0){//如果球的数量超过了700个
+            particles.splice(0,particleOverflow)//删除掉最开始创建的球
+        }
+
+        for(var i=0;i<particles.length;i++){
+            var p = particles[i]
+            if(!mouse.out){
+                x = mouse.x-p.x
+                y = mouse.y-p.y
+                a = x*x+y*y//鼠标所在点和球的距离的平方
+                a = a>100?gravityStrength/a:gravityStrength/100//a最大取0.1，如果距离大于10,a会更小
+                p.xv = (p.xv+a*x)*0.99//球本次的x坐标偏移量（p.xv，x可能为正也可能为负）
+                p.yv = (p.yv+a*y)*0.99//球本次的y坐标偏移量（p.xy，y可能为正也可能为负）
+            }
+            p.x += p.xv // p.xv为负，则向左移，为正向右移
+            p.y += p.yv// p.yv为负，向上移，为正向下移
+            p.a *= 0.99 //减小透明度
+        }
+    }
+</script>
+
+
+</body></html>

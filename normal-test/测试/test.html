@@ -55,15 +55,6 @@
     //   console.log('scroll');
     // }, 1000)
 
-    //算法
-    //每次只能走1步或者每次只能走2步，10个台阶有多少种方式走完
-    function getWayCount(step){
-      if(step === 1 || step === 2) return step;
-      return getWayCount(step - 1) + getWayCount(step - 2);
-      
-    }
-    var count = getWayCount(10);
-    console.log(count);
   </script>
 </body>
 
