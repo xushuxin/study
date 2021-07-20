@@ -1,0 +1,17 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "description": "学习笔记 #### webpack原理 假设有两个js模块，这里我们先假设这两个模块是符合commomjs标准的es5模块。 我们的目的是将这两个模块打包为一个能在浏览器端运行的文件，叫bundle.js。 ```js // index.js var add = require('add.js').default console.log(add(1 , 2))",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/parser": "^7.14.7",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/traverse": "^7.14.7"
+  }
+}
