@@ -16,6 +16,6 @@ public:
             while (q.size() && sum[i] < sum[q.back()]) q.pop_back();
             q.push_back(i);
         }
-        return ans;
+        return ans;                  
     }
 };

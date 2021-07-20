@@ -16,11 +16,9 @@ function binary_search_01(arr, n, x) {
         else tail = mid;//如果中指针的值是1，调整尾指针到中指针的位置（这个1有可能就是我们要找到那个）
     }
 
-    for (let i = head; i < tail; i++) {//间距等于3时，使用顺序查找
-        if (arr[i] === x) return i;
+    for (let i = head; i <= tail; i++) {//间距等于3时，使用顺序查找
+        if (arr[i] >= x) return i;
     }
-    // 这里head === tail
-    return head;
 }
 
 /* 测试 */

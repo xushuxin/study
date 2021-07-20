@@ -1,3 +1,9 @@
 {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.associations": {
+        "*.txt": "plaintext",
+        "*.js": "javascript",
+        "*.vue": "vue",
+        "deque": "cpp"
+    }
 }
